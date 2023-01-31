@@ -214,7 +214,7 @@ const ActivityCreate = () => {
                 </label>
             </div>
                 
-            <button type="submit" tertiary>Create Activity</button>
+            <button type="submit">Create Activity</button>
         </Form>
 
             

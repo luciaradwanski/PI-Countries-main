@@ -3,46 +3,55 @@ const { Country, Activity } = require('../db');
 const axios = require("axios");
 
 const getApiInfo = async () => {
+   
     try {
-      let countries = (await axios.get("https://restcountries.com/v3/all")).data;
-      // let name = countries[0].name;
-      countries = await Promise.all(
-        countries.map((country) => {
-          Country.findOrCreate({
-            where: {
-              id: country.cca3,
-              name: country.name.common,
-              flags: country.flags[1],
-              continent: country.continents[0],
-              capital: country.capital ? country.capital[0] : "Not found",
-              subregion: country.subregion ? country.subregion : "Not found",
-              area: country.area,
-              population: country.population,
-              
-            },
-          });
-        })
-      );
-      // console.log(name);
-      return "¡ Database loaded ! =)";
+      const response = await axios.get("https://restcountries.com/v3.1/all");
+      const { data } = response;
+      data.map(async (c) => {
+        await Country.findOrCreate({
+          where: { name: c.name.official },
+          defaults: {
+            id: c.cca3,
+            name: c.name.official,
+            flags: c.flags.png,
+            continents: c.continents,
+            capital: c.capital || ["none"],
+            subregion: c.subregion || "none",
+            area: c.area,
+            population: c.population,
+          },
+        });
+      });
+      console.log("Countries loaded in DB succesfully");
+  
+      if (query) {
+        const response = await Country.findAll({
+          where: { name: { [Op.iLike]: `%${query}%` } },
+        });
+        return response && response;
+      }
+  
+      const countriesDB = await Country.findAll({
+        include: {
+          model: Activity,
+          attributes: ["name", "difficulty", "duration", "seasson"],
+          through: { attributes: [] },
+        },
+      });
+  
+      return countriesDB && countriesDB;
     } catch (error) {
-      return error;
+      console.log(error);
     }
   };
   
   const getAllCountries = async () => {
     const countries = await Country.findAll({
-      // attributes: [
-      //   "id",
-      //   "name",
-      //   "flags",
-      //   "continent",
-      //   "population",
-      //   "capital",
-      //   "subregion",
-      //   "area",
-      // ],
-      include: [{model: Activity, attributes: ["name"],}]
+      include: {
+        model: Activity,
+        attributes: ["name", "difficulty", "duration", "seasson"],
+        through: { attributes: [] },
+      },
     });
     //[countries] || []
     return countries;
@@ -55,7 +64,7 @@ const getApiInfo = async () => {
           [Op.iLike]: `%${name}%`,
         },
       },
-      // attributes: ["id", "name", "flags", "continent", "capital", "population"],
+      
       include: Activity
     });
   

@@ -15,28 +15,22 @@ const getCountriesHandler = async(req, res) => { //async
       data = await getAllCountries();
       data.length > 0
         ? res.send(data)
-        : res.status(404).send({ message: "No se encontraron paises " });
+        : res.status(404).send({ message: "Country not found" });
     }
   } catch (error) {
-    res.send(error);
+    res.status(400).json({error: error.message});
   }
 };
 
 const getCountryHandler = async(req, res) => { 
   const { id } = req.params;
   try {
-    let countryId = await Country.findByPk(id.toUpperCase(), {
-      attributes: [
-        "id",
-        "name",
-        "flags",
-        "continent",
-        "capital",
-        "population",
-        "subregion",
-        "area",
-      ],
-      include: Activity,
+    let countryId = await Country.findByPk(id, {
+      include: {
+        model: Activity,
+        attributes: ["name", "difficulty", "duration", "season"],
+        through: { attributes: []},
+      }
     });
     countryId
       ? res.send(countryId)
