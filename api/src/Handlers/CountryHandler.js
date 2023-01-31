@@ -1,6 +1,6 @@
 const { Country, Activity} = require('../db')
 
-const {getCountryByName, getAllCountries} = require('../Controllers/CountryController')
+const {getCountryByName, getAllCountries, getCountryById} = require('../Controllers/CountryController')
 
 
 
@@ -24,20 +24,8 @@ const getCountriesHandler = async(req, res) => { //async
 
 const getCountryHandler = async(req, res) => { 
   const { id } = req.params;
-  try {
-    let countryId = await Country.findByPk(id, {
-      include: {
-        model: Activity,
-        attributes: ["name", "difficulty", "duration", "season"],
-        through: { attributes: []},
-      }
-    });
-    countryId
-      ? res.send(countryId)
-      : res.status(404).send({ message: "País no encontrado" });
-  } catch (error) {
-    res.send(error);
-  }
+  const country = await getCountryById(id);
+  return country ? res.send(country) : res.send("Country not found");
 };
 
 

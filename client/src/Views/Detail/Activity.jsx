@@ -18,7 +18,7 @@ const Activity = ({ name, difficulty, duration, seasson, countryId }) => {
                 <span>Seasson: </span>{seasson}
             </div>
             <div>
-                <span>CountryId: </span>{countryId}
+                <span>countries: </span>{countries}
             </div>
         </div>
     )

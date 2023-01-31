@@ -37,14 +37,10 @@ export const getCountriesByName = (name) => {
     }    
 };
 
-export const getDetail = (id) => {
+export const getCountryById = (id) => {
   return async function(dispatch){
     const apiData = await axios.get(`http://localhost:3001/countries/countries/${id}`)
-    const countries = apiData.data;
-    dispatch({
-      type: GET_COUNTRY_BY_ID,
-      payload: countries,
-    })
+    dispatch({type: GET_COUNTRY_BY_ID, payload: apiData.data})
   }
 }
 
@@ -120,10 +116,10 @@ export const getActivityDetails = (id) => {
     }
 };
 
-export const createActivity = (payload) => { // o payload???
+export const createActivity = (name, difficulty, duration, seasson, countries,) => { // o payload???
   return async function(dispatch) {
     
-      const res = await axios.post("http://localhost:3001/activities/activity", payload);
+      const res = await axios.post("http://localhost:3001/activities/activity", name, difficulty, duration, seasson, countries);
       dispatch({
         type: CREATE_ACTIVITY,
         payload: res.data

@@ -71,8 +71,25 @@ const getApiInfo = async () => {
     return country;
   };
 
+  const getCountryById = async (id) => {
+    try {
+      const country = await Country.findByPk(id, {
+        include: {
+          model: Activity,
+          attributes: ["name", "difficulty", "duration", "seasson"],
+          through: { attributes: [] },
+        },
+      });
+  
+      return country && country;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   module.exports = {
     getApiInfo,
     getAllCountries,
     getCountryByName,
+    getCountryById,
 };

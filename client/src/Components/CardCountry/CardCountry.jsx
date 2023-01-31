@@ -18,10 +18,7 @@ const CardCountry = (props) => {
             <img src={props.flags} alt="Imagen"/>
             <h3>Name: {props.name}</h3>
             <h5>Continent: {props.continent}</h5>
-            {/* <h5>Subregion: {props.subregion}</h5>
-            <h5>Capital: {props.capital}</h5>
-            <h5>Area: {props.area}</h5>
-            <h5>Poblacion: {props.population}</h5> */}
+            
         </DivCard>
     )
 }

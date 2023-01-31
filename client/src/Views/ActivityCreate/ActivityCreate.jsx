@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { createActivity, getActivities, getAllCountries, orderCountries, } from "../../redux/actions";
+import { createActivity, getActivities, getAllCountries} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import trash from '../../Assets/delete.png'
 import styled from "styled-components";
@@ -29,26 +28,26 @@ function validate(input) {
     let errors = {};
     if(!input.name){
         errors.name = "La actividad debe tener un nombre"
-    } else if(/[$&+,:;=?@#|'<>.^*()%!-\s]/.test(input.name)){
-        errors.name = "El nombre de la actividad no puede tener caracteres especiales"
+    } else if(/^[a-zA-ZA-y\s]{3,80}$/.test(input.name)){
+        errors.name = "Don't type numbers or special characters"
     }
 
     if(!input.difficulty) {
-        errors.difficulty = "Escoja la dificultad de la actividad"
+        errors.difficulty = "Please select a difficulty value between 1 and 5"
     }
 
     if(!input.duration) {
-        errors.duration = "Debes especificar la duración de la actividad" 
+        errors.duration = "Please only type numbers" 
     }else if(!/[0-9]+[^]+[(^|, )(hora|dia|semana|año|mes)]/.test(input.duration)){
         errors.duration = 'Debe ser un numero seguido de un indicador de periodo (horas, dias, semanas, meses, años). Ejemplo: "1 dia"';
     }
 
     if(!input.seasson) {
-        errors.seasson = "Especifica en que temporada se realiza dicha actividad"
+        errors.seasson = "Please select a season"
     }
 
     if(input.countries.length === 0) {
-        errors.countryId = "Debe seleccionar 1 o varios paises de la lista"
+        errors.countries = "Please select one or more countries"
     }
 
     return errors;
@@ -56,12 +55,6 @@ function validate(input) {
 
 const ActivityCreate = () => {
 
-
-
-    
-
-    
-    
     const dispatch = useDispatch();
     const countries = useSelector((state) => state.allCountries)
     const allActivity = useSelector((state) => state.activities)
@@ -70,25 +63,23 @@ const ActivityCreate = () => {
     const [form, setForm] = useState({
         name: "",
         duration: "",
-        difficulty: "",
-        seasson: "",
-        countryId: [],
+        difficulty: "1",
+        seasson: "Select here",
+        countries: [],
     })
 
-    const [errors, setErrors] = useState({});
-    
+    const [errors, setErrors] = useState({
+        name: "",
+        difficulty: "",
+        duration: "",
+        seasson: "",
+        countries: "",
+    });
+
     useEffect(() => {
         dispatch(getAllCountries())
         dispatch(getActivities())
-        const timer = setTimeout(() => {
-            dispatch(orderCountries('ASC'))
-        }, 1000);
-        return () => clearTimeout(timer);
-
-    },[dispatch])
-
-    /* Array de actividades por nombre para validar que no se repitan */
-    const arrayAct = allActivity.map((a) => a.name);
+    }, [dispatch])
 
     const changeHandler = (e) => {
         setForm({ ...form, [e.target.name]:e.target.value })
@@ -96,49 +87,59 @@ const ActivityCreate = () => {
     }
     
     const handleSelect = (e) => {
-        if(form.allCountries.includes(e.target.value)) {
-            alert('El pais ya esta seleccionado')
-        } else {
-            setForm({ ...form, countryId : [...form.countryId, e.target.value]})
-            setErrors(validate({...form, countryId:[...form.countryId, e.target.value],}, arrayAct));
-        }
+        setForm({ ...form, countries: form.countries.filter((c) => c.target.name)})
+        // setErrors(validate({...form, countries:[...form.countries, e.target.value],}));
+        
     }
-
-    const handleCheck = (e) => {
-        if(e.target.checked) { /* si esta seleccionado lo agrega al array */
-            setForm({ ...form,  [e.target.name] : e.target.value, });
-        }
-        setErrors(validate({...form, [e.target.name] : e.target.value, }, arrayAct));
-        /* si no esta, lo elimina del array y array que valida que no se repitan */
-    }
-
 
     
 
-    const handleDelete = (country) => {
-        setForm({...form, countryId: form.countryId.filter((c) => c !== country),});
-        setErrors(validate({...form, countryId: form.countryId.filter((c) => c !== country),}, arrayAct));
-    };
-
-    const navigate = useNavigate();
+    
 
     const submitHandler = (event) => {
         event.preventDefault();
         /* Si no hay errores en ninguno */
-        if(form.name && form.difficulty && form.duration && form.seasson && form.countryId.length && !Object.keys(errors).length) {
-            dispatch(createActivity(form))
-            alert('Actividad creada')
-            setForm({
-                name: "",
-                duration: "",
-                difficulty: "",
-                seasson: "",
-                countryId: [],
-            });
-            
-        } else {
-            alert('Por favor, complete los campos o revise los errores')
+        function required() {
+            if (!form.name) {
+              setErrors({ ...errors, name: "This field cannot be empty" });
+            } else if (!form.duration) {
+              setErrors({ ...errors, duration: "This field cannot be empty" });
+            } else if (form.seasson === "Select here...") {
+              setErrors({ ...errors, season: "Please select one season" });
+            } else if (!form.countries.length) {
+              setErrors({
+                ...errors,
+                countries: "Please select one or more countries",
+              });
+            } else {
+              return true;
+            }
+            return false;
         }
+
+        if(!errors.name &&
+            !errors.difficulty &&
+            !errors.duration &&
+            !errors.seasson &&
+            !errors.countries &&
+            required()) {
+                try {
+                    dispatch(createActivity(form));
+                    alert("Activity created succesfully");
+                    setInputs({
+                      name: "",
+                      difficulty: "1",
+                      duration: "",
+                      season: "",
+                      countries: [],
+                    });
+                    document.getElementById("countries").value = "Select here...";
+                    document.getElementById("name").select();
+                } catch (error) {
+                    alert(error);
+                    document.getElementById("name").select();
+                }
+            }
     }
 
     
@@ -146,77 +147,62 @@ const ActivityCreate = () => {
 
     return (
         
-        <Form onSubmit={submitHandler}>
+        <div>
             <Link to='/home'><button>Back Home</button></Link>
-            <div>
-                <h1>Actividad Turística</h1>
+            <Form onSubmit={submitHandler}>
+            
                 <div>
-                    <label>
-                        <p>Select Countries....</p>
-                        <select name="countryId" id="countryId" onChange={handleSelect}>
-                            <option>Select here....</option>
-                            {countries?.map((c, index) => {
-                                return (
-                                    <option key={index} value={c.id}>{c.name}</option>
-                                )
-                            })}
-                        </select>
-                        {errors.countryId && <span>{errors.countryId}</span>}
-                        <div>
-                            {form.countryId?.map((c, index) => (
-                                <div key={index} onClick={handleDelete}>{c}<img src={trash} alt="trash" onClick={() => handleDelete(c)}/></div>
-                        
-                            ))}
-                        </div>
-                    </label>
+                    <h2>Nombre de Actividad</h2>
+                    <input type="text" id="name" value={form.name} autoComplete="off" placeholder="Name of Activity" onChange={changeHandler} name="name" />
+                    {errors.name && (<span>{errors.name}</span>)}
                 </div>
-            </div>
-                
-            <div>
-                <label>
-                    <p>Nombre de Actividad...</p>
-                    <input type="text" value={form.name} autoComplete="off" placeholder="Name of Activity" onChange={changeHandler} name="name" />
-                    {errors.name && <span>{errors.name}</span>}
-                </label>
-            </div>
-            <div>
-                <label>
-                    <p>Activity Difficulty...</p>
-                    <div>
-                        <div><input type="radio" name="difficulty" value="1" onChange={handleCheck}/>Muy bajo</div>
-                        <div><input type="radio" name="difficulty" value="2" onChange={handleCheck}/>bajo</div>
-                        <div><input type="radio" name="difficulty" value="3" onChange={handleCheck}/>Medio</div>
-                        <div><input type="radio" name="difficulty" value="4" onChange={handleCheck}/>Alto</div>
-                        <div><input type="radio" name="difficulty" value="5" onChange={handleCheck}/>Muy Alto</div>
-                    </div>
-                    {/* <input type="range" min="1" max="5" value={form.difficulty} autoComplete="off" placeholder="Duration" onChange={changeHandler} name="difficulty" /> */}
-                    {errors.difficulty && <span>{errors.difficulty}</span>}
-                </label>
-            </div>
-            <div>
-                <label>
-                    <p>Duración...</p>
-                    <input type="number" value={form.duration} autoComplete="off" placeholder="Duración en días" onChange={changeHandler} name="duration" />
-                    {errors.duration && <span>{errors.duration}</span>}
-                </label>
-            </div>
-            <div>
-                <label>
-                    <p>Seasson:</p>
-                    <div>
-                        <div><input type="checkbox" name="seasson" value="Summer" onChange={(e) => handleCheck(e)}/>Summer</div>
-                        <div><input type="checkbox" name="seasson" value="Spring" onChange={(e) => handleCheck(e)}/>Spring</div>
-                        <div><input type="checkbox" name="seasson" value="Autumn" onChange={(e) => handleCheck(e)}/>Autumn</div>
-                        <div><input type="checkbox" name="seasson" value="winter" onChange={(e) => handleCheck(e)}/>winter</div>
-                    </div>
+                <div>
+                    <h2>Activity Difficulty</h2>
+                    <Input name="difficulty" value={form.difficulty} type="range" min="1" max="5" width="95%" onChange={changeHandler}/>
+                    <Span color="chocolate" fWeight="bold">
+                        {inputs.difficulty}
+                    </Span>
+                        
+                    {errors.difficulty && (<span>{errors.difficulty}</span>)}
+                </div>
+                <div>
+                    <h2>Duración</h2>
+                    <input type="text" value={form.duration} autoComplete="off" placeholder="Duración en días" onChange={changeHandler} name="duration" />
+                    {errors.duration && (<span>{errors.duration}</span>)}
+                </div>
+                <div>
+                    <Select name="season" id="season" onChange={changeHandler} value={form.seasson}>
+                        <Option>Select here...</Option>
+                        <Option value="Autumn">Autumn</Option>
+                        <Option value="Winter">Winter</Option>
+                        <Option value="Spring">Spring</Option>
+                        <Option value="Summer">Summer</Option>
+                    </Select>
+                    {errors.seasson && (<span>{errors.seasson}</span>)}
                     
-                    {errors.seasson && <span>{errors.seasson}</span>}
-                </label>
-            </div>
-                
-            <button type="submit">Create Activity</button>
+                </div>
+                <div>
+                    <h2>Countries</h2>
+                    <select name="countries" id="countries" onChange={changeHandler}>
+                        <option>Select here...</option>
+                        {countries.map((c) => (<option key={c.id} value={c.id}>{c.name}</option>))}
+                    </select>
+                    {errors.countries && (<span>{errors.countries}</span>)}
+                    <div>
+                        {form.countries?.map((c) => (
+                            <button key={c} name={c} onClick={handleSelect} bground={`url("${
+                                countries?.find((country) => country.id === c)?.flags
+                              }") no-repeat center/100%`}>
+                                
+                              </button>
+                        ))}
+                    </div>
+                </div>
+                    
+                <button type="submit">Create Activity</button>
         </Form>
 
+        </div>
             
     )
 }

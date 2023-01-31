@@ -211,8 +211,6 @@ const Home = () => {
                 </DivFiltros>
                 
                 <div>
-                    
-                
                     {currentCountries?.map((el) =>{
                         return(
                             <div>
