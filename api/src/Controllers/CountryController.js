@@ -18,7 +18,7 @@ const getApiInfo = async () => {
               subregion: country.subregion ? country.subregion : "Not found",
               area: country.area,
               population: country.population,
-              // Activities: country.activity.map(country => country)
+              
             },
           });
         })
@@ -32,16 +32,16 @@ const getApiInfo = async () => {
   
   const getAllCountries = async () => {
     const countries = await Country.findAll({
-      attributes: [
-        "id",
-        "name",
-        "flags",
-        "continent",
-        "population",
-        "capital",
-        "subregion",
-        "area",
-      ],
+      // attributes: [
+      //   "id",
+      //   "name",
+      //   "flags",
+      //   "continent",
+      //   "population",
+      //   "capital",
+      //   "subregion",
+      //   "area",
+      // ],
       include: [{model: Activity, attributes: ["name"],}]
     });
     //[countries] || []
@@ -55,8 +55,8 @@ const getApiInfo = async () => {
           [Op.iLike]: `%${name}%`,
         },
       },
-      attributes: ["id", "name", "flags", "continent", "capital", "population"],
-      include: [{model: Activity, attributes: ["name"],}]
+      // attributes: ["id", "name", "flags", "continent", "capital", "population"],
+      include: Activity
     });
   
     return country;

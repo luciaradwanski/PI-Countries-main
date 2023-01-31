@@ -52,10 +52,11 @@ const createActivitiesHandler = async (req, res) => {
 
         if(!validateAct) {
             const addAct = await Activity.create({
-                name,
-                difficulty,
-                duration,
-                seasson,
+                name: name,
+                difficulty: difficulty,
+                duration: duration,
+                seasson: seasson,
+                countryId: countryId,
             });
             const countrymatch = await Country.findAll({
                 where: {
@@ -76,22 +77,7 @@ const createActivitiesHandler = async (req, res) => {
         const resact = await validateAct.addCountries(countrymatch);
         
         res.send(resact);
-        // if(name && difficulty && duration && seasson) {
-        //     countries.forEach(async (country) => {
-
-        //         const newActivity = await Activity.create({
-        //             name,
-        //             difficulty,
-        //             duration,
-        //             seasson,
-        //         });
-
-        //         const countryAct = await Country.findByPk(country);
-        //         countryAct.addActivity(newActivity);
-        //     })
-        // }
         
-        // res.status(200).send({ message: 'Actividad creada exitosamente' });
 
     } catch(error){
         res.status(404).json({message: 'Error, no se pudo crear actividad'})
@@ -109,7 +95,7 @@ const modifyActivityHeadler = async (req, res) => {
 
     try{
 
-        const detailAct = await Activity.findByPk(id);
+        let detailAct = await Activity.findByPk(id);
         detailAct = await Activity.update(
             {name, difficulty, duration, seasson}, 
             {where: {id: id,}}
@@ -125,14 +111,7 @@ const modifyActivityHeadler = async (req, res) => {
 };
 
 const deleteActivityHeadler = async (req, res) => {
-    // const { id } = req.params;
-    // try {
-    //     const activity = await deleteActivity(id);
-    //     if (activity > 0) return res.send({ msg: "Activity deleted correctly." });
-    //     res.send({ msg: "Activity doesn't exists" });
-    // } catch (error) {
-    //     res.status(400).json({error: error.message});
-    // }
+    
     const { id } = req.params
     
     try{
