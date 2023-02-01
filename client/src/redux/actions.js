@@ -101,29 +101,32 @@ export const filterByArea = (payload) => {
 };
 
 export const getActivities = () => {
-    return async function(dispatch){
-      const act = await axios.get(`http://localhost:3001/activities/activities/`)
-      const allAct = act.data;
-      dispatch({type: GET_ALL_ACTIVITIES,payload: allAct})
-    }
+  return async function(dispatch){
+    const act = await axios.get("http://localhost:3001/activities/activities/", {} );
+   
+    return dispatch({type: GET_ALL_ACTIVITIES, payload: act.data})
+  }
 };
 
-export const getActivityDetails = (id) => {
-    return async function(dispatch){
-      const actD = await axios.get(`http://localhost:3001/activities/activities/${id}`)
-      const aDetail = actD.data;
-      dispatch({ type: GET_ACTIVITY_DETAILS, payload: aDetail })
-    }
-};
-
-export const createActivity = ({name, duration, difficulty, seasspn, countries}) => {
-  return async function() {
+export const createActivity = (payload) => {
+  return async function(dispatch) {
     
-      const res = await axios.post(`http://localhost:3001/activities/activity`, {name, duration, difficulty, seasspn, countries});
+      const res = await axios.post("http://localhost:3001/activities/activity", payload);
+      console.log(res)
       return res;
           
   };
-};//http://localhost:3001/activities/activity/
+};
+
+
+
+export const getActivityDetails = (id) => {
+  return async function(dispatch){
+    const actD = await axios.get(`http://localhost:3001/activities/activities/${id}`)
+    const aDetail = actD.data;
+    dispatch({ type: GET_ACTIVITY_DETAILS, payload: aDetail })
+  }
+};
 
 export const updateActivity = ({id, payload}) => {
     return async function(dispatch){

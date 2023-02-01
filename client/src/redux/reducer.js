@@ -116,39 +116,8 @@ const rootReducer = (state = initialState, action) => {
                ...state,
                allCountries: temporada,
            };
-        
-        case GET_ALL_ACTIVITIES:
-
-            /* Retorna una copia del estado ---> un estado nuevo  en donde tenga las prop del state,
-            se modifican la prop que quiero modificar, en el llamado activities tambien seteamos toda 
-            la info de los actividades para despues filtrarlos!*/
-
-            return { 
-                ...state, 
-                activities: action.payload,
-            };
-        
-        
-        
-        
             
-        case FILTER_BY_ACTIVITY:
-
-             /* Retorna una copia del estado ---> un estado nuevo  en donde tenga las prop del state,
-            se modifican la prop que quiero modificar, en el llamado allCountries tambien seteamos toda 
-            la info de activity por nombre para despues filtrarlos!*/
-
-            let filterActivityName;
-            if (action.payload === "all") filterActivityName = state.countries;
-            else filterActivityName = state.countries.filter((country) =>
-                country.Activities.filter((activity) => activity.name === action.payload).length > 0
-            );
-            
-            
-            return {
-                ...state,
-                allCountries: filterActivityName,
-            };
+        
         case FILTER_BY_NAME:
 
             /* Retorna una copia del estado ---> un estado nuevo  en donde tenga las prop del state,
@@ -203,6 +172,16 @@ const rootReducer = (state = initialState, action) => {
                 allCountries: sortArea
             }
         
+        case GET_ALL_ACTIVITIES:
+
+            /* Retorna una copia del estado ---> un estado nuevo  en donde tenga las prop del state,
+            se modifican la prop que quiero modificar, en el llamado activities tambien seteamos toda 
+            la info de los actividades para despues filtrarlos!*/
+
+            return { 
+                ...state, 
+                activities: action.payload,
+            };
         case GET_ACTIVITY_DETAILS:
             return {
                 ...state,
@@ -220,6 +199,23 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
+        case FILTER_BY_ACTIVITY:
+
+            /* Retorna una copia del estado ---> un estado nuevo  en donde tenga las prop del state,
+           se modifican la prop que quiero modificar, en el llamado allCountries tambien seteamos toda 
+           la info de activity por nombre para despues filtrarlos!*/
+
+           let filterActivityName;
+           if (action.payload === "all") filterActivityName = state.countries;
+           else filterActivityName = state.countries.filter((country) =>
+               country.Activities.filter((activity) => activity.name === action.payload).length > 0
+           );
+           
+           
+           return {
+               ...state,
+               allCountries: filterActivityName,
+           };
         case ORDER_COUNTRIES:
             let order = state.countries;
 

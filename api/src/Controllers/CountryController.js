@@ -43,7 +43,7 @@ const getApiInfo = async () => {
     } catch (error) {
       console.log(error);
     }
-  };
+};
   
   const getAllCountries = async () => {
     const countries = await Country.findAll({
@@ -60,8 +60,12 @@ const getApiInfo = async () => {
   const getCountryByName = async (name) => {
     const countries = await Country.findAll({
       where: {
-        name: { [Op.iLike]: `%${name}%`,},
-      },
+        name: { [Op.iLike]: `%${name}%` }
+    },
+      include: [{
+        model: Activity,
+        
+      }]
       
     });
   

@@ -1,14 +1,13 @@
-const { Country, Activity } = require("../db");
+const { Activity } = require("../db");
+const Country = require("../models/Country");
 
 const getActivities = async () => {
-  try {
-    actList = await Activity.findAll({ 
-      attributes: ['name', 'ID'],
+  
+    const actList = await Activity.findAll({ 
+      attributes: ['name', 'id'],
     });  
-  } catch (error) {
-    console.log(error);
-  } 
-  return actList;
+  
+    return actList;
 };
 
 const postActivity = async ({ name, difficulty, duration, seasson, countries }) => {

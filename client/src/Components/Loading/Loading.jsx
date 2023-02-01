@@ -34,7 +34,38 @@ const Loading = () => {
     return (
         <DivLoad>
             <div> {/* <NavBar /> */}</div>
-            <DivSpinner className="spinner"> </DivSpinner>
+            <DivSpinner className="spinner">MAL </DivSpinner>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
+            <h2>MAL</h2>
         </DivLoad>
     );
 }
