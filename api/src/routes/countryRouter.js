@@ -1,5 +1,6 @@
 /* Creamos un Router */
 const { Router } = require('express');
+const { useInflection } = require('sequelize');
 
 
 const {getCountriesHandler, getCountryHandler} = require('../Handlers/CountryHandler')

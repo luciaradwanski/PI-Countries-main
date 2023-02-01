@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { emptyCountryDetail, getActivityDetails, getCountryById } from "../../redux/actions";
+import { emptyCountryDetail, getActivityDetail, getCountryById } from "../../redux/actions";
 import { Link, useParams } from "react-router-dom";
 import ActivityCard from "./ActivityCard";
 import styled from "styled-components";
@@ -13,21 +13,21 @@ export const DivDetail = styled.div`
 
 const Detail = () => {
 
-    const params = useParams();
+    const {id} = useParams();
     const myCountry = useSelector((state) => state.detail);
-    const activities = useSelector((state) => state.activityDetail) 
+    let activ = useSelector((state) => state.activities)
     const dispatch = useDispatch();
-    
-    
+    const [country, setCountry] = useState({})
+    const [set, setSet] = useState(true)
     useEffect(() => {
-        dispatch(getCountryById(params.id));
-        dispatch(getActivityDetails())
-
+        dispatch(getCountryById(id));
         return () => {
-            dispatch(emptyCountryDetail())
+            setSet(id)
         }
+    }, [dispatch, id]);
 
-    }, [dispatch, params.id]);
+    
+    const actividad = activ.filter(e => e.countries[0].ID === id)
 
     return (
         <DivDetail>
@@ -52,24 +52,24 @@ const Detail = () => {
                         <p>Subregion: {myCountry.subregion}</p>
                         <p>Population: {myCountry.population?.toLocaleString()} Habitants</p>
 
-                        {/* {myCountry.activities?.length ? (
+                        {/* {actividad.activities?.length ? (
                             <div>
                                 <h2>Activities</h2>
-                                {myCountry.activity?.map((a) => (
+                                {actividad.activities?.map((a) => (
                                     <p style={{ paddingBottom: "10px" }} key={Math.random(0, 10)}>
                                         {a.name}.
                                     </p>
                                 ))}
                             </div>
-                        ) : ("")} */}
+                        ) : ("")}  */}
                     </div>
                     <div><h2>Actividades</h2></div>
-                    <div>
+                    {/* <div>
                     {
-                        myCountry.activities && myCountry.activities.length > 0 ? myCountry.activities.map(a =>
+                        actividad.activities && actividad.activities.length > 0 ? actividad.activities.map(a =>
                             <ActivityCard 
                                 name={a.name}
-                                seasson={a.season}
+                                seasson={a.seasson}
                                 duration={a.duration}
                                 difficulty={a.difficulty}
                                 countries={a.countries}
@@ -77,7 +77,8 @@ const Detail = () => {
                                                                               )
                         : <p>No hay actividades registradas</p>
                     }
-                    </div>
+                    </div> */}
+                    
             </div>
         
         </DivDetail>

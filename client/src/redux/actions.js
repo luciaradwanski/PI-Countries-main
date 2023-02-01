@@ -117,28 +117,25 @@ export const getActivityDetails = (id) => {
 };
 
 export const createActivity = ({name, duration, difficulty, seasspn, countries}) => {
-  return async function(dispatch) {
+  return async function() {
     
-      const res = await axios.post("http://localhost:3001/activities/activity", name, duration, difficulty, seasspn, countries);
-      dispatch({
-        type: CREATE_ACTIVITY,
-        payload: res.data
-      })
+      const res = await axios.post(`http://localhost:3001/activities/activity`, {name, duration, difficulty, seasspn, countries});
+      return res;
           
   };
 };//http://localhost:3001/activities/activity/
 
 export const updateActivity = ({id, payload}) => {
     return async function(dispatch){
-      const modif = await axios.put(`activities/activity/${id}`, payload)
+      const modif = await axios.put(`http://localhost:3001/activities/activity/${id}`, payload)
       const modifyA = modif.data;
       dispatch({type: UPDATE_ACTIVITY, payload: modifyA })
     }
 };
 
-export const deleteActivity = (payload) => {
+export const deleteActivity = (id) => {
     return async function(dispatch){
-      const delet = await axios.delete(`http://localhost:3001/activities/activity/${payload.activity}`)
+      const delet = await axios.delete(`http://localhost:3001/activities/activity/${id}`)
       const deleteA = delet.data;
       dispatch({type: DELETE_ACTIVITY, payload: deleteA })
     }

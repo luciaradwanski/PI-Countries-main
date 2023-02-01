@@ -58,26 +58,25 @@ const getApiInfo = async () => {
   };
   
   const getCountryByName = async (name) => {
-    const country = await Country.findAll({
+    const countries = await Country.findAll({
       where: {
-        name: {
-          [Op.iLike]: `%${name}%`,
-        },
+        name: { [Op.iLike]: `%${name}%`,},
       },
       
-      include: {model: Activity, as: 'activities'} //revisar
     });
   
-    return country;
+    if (countries.length) return countries;
+    throw new Error("No se encontraron coincidencias");
   };
 
   const getCountryById = async (id) => {
     const country = await Country.findByPk(id, {
-      include: {
+      include: [
+        {
         model: Activity,
-        attributes: ["name", "difficulty", "duration", "seasson"],
         through: { attributes: [] },
-      },
+        },
+      ]
     });
 
     return country

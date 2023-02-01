@@ -1,6 +1,6 @@
 const {Country, Activity} = require('../db');
 
-const {postActivity, getActivities} = require('../Controllers/ActivityControllers')
+const {postActivity, getActivities, } = require('../Controllers/ActivityControllers')
 const getActivitiesHandler = async (req, res) => {
 
     
@@ -44,10 +44,7 @@ const deleteActivityHeadler = async (req, res) => {
     
     try{
 
-        let filaBorrada = await Activity.destroy({
-            where:{id: id},
-            truncate: {cascade: true}
-        });
+        let filaBorrada = await deleteAct(id)
         if(filaBorrada === 1){
             res.status(200).json('La actividad fue eliminada')  
         }                    

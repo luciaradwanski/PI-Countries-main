@@ -1,26 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteActivity, getActivityDetails } from "../../redux/actions";
 
 
 
-const ActivityCard = () => {
+const ActivityCard = ({activity}) => {
+    const {id, name, difficulty, seasson, duration} = activity;
+    const dispach = useDispatch()
 
-    const activity = useSelector((state) => state.activities)
+    const deleteHandle = (id) => {
+        dispach(deleteActivity(id));
+        window.location.reload();
+    }
     
     return (
         <div>
-            <h2>Name: {activity.name}</h2>
+            <h3>{name}</h3>
             <div>
-                <span>Difficulty: </span> {activity.difficulty}
-            </div>
-            <div>
-                <span>Duration: </span> {activity.duration} Days
-            </div>
-            <div>
-                <span>Seasson: </span>{activity.seasson}
-            </div>
-            <div>
-                <span>countries: </span>{activity.countries}
+                <p>{`Season: ${seasson}`}</p>
+                <p>{`Duration: ${duration}`}</p>
+                <p>{`Difficulty: ${difficulty}`}</p>
+                <button onClick={() => deleteHandle(id)}>Delete</button>
             </div>
         </div>
     )
