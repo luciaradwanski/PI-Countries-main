@@ -116,10 +116,10 @@ export const getActivityDetails = (id) => {
     }
 };
 
-export const createActivity = (name, difficulty, duration, seasson, countries,) => { // o payload???
+export const createActivity = ({name, duration, difficulty, seasspn, countries}) => {
   return async function(dispatch) {
     
-      const res = await axios.post("http://localhost:3001/activities/activity", name, difficulty, duration, seasson, countries);
+      const res = await axios.post("http://localhost:3001/activities/activity", name, duration, difficulty, seasspn, countries);
       dispatch({
         type: CREATE_ACTIVITY,
         payload: res.data

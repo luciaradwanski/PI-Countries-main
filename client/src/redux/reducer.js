@@ -138,18 +138,16 @@ const rootReducer = (state = initialState, action) => {
             se modifican la prop que quiero modificar, en el llamado allCountries tambien seteamos toda 
             la info de activity por nombre para despues filtrarlos!*/
 
-            // let filterActivityName;
-            // if (action.payload === "all") filterActivityName = state.countries;
-            // else filterActivityName = state.countries.filter((country) =>
-            //     country.Activities.filter((activity) => activity.name === action.payload).length > 0
-            // );
-            const activities = state.activities;
-            const activity = activities.find(a => a.name === action.payload);
-            const activityCountries = activity ? activity.countries : state.countries;
+            let filterActivityName;
+            if (action.payload === "all") filterActivityName = state.countries;
+            else filterActivityName = state.countries.filter((country) =>
+                country.Activities.filter((activity) => activity.name === action.payload).length > 0
+            );
+            
             
             return {
                 ...state,
-                allCountries: activityCountries,
+                allCountries: filterActivityName,
             };
         case FILTER_BY_NAME:
 
@@ -208,7 +206,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_ACTIVITY_DETAILS:
             return {
                 ...state,
-                activityDetail: action.payload, /////////////////////
+                activityDetail: action.payload,
             }
         case CREATE_ACTIVITY:
             return {

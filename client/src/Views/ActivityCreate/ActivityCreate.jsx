@@ -126,7 +126,7 @@ const ActivityCreate = () => {
                 try {
                     dispatch(createActivity(form));
                     alert("Activity created succesfully");
-                    setInputs({
+                    setForm({
                       name: "",
                       difficulty: "1",
                       duration: "",
@@ -158,10 +158,10 @@ const ActivityCreate = () => {
                 </div>
                 <div>
                     <h2>Activity Difficulty</h2>
-                    <Input name="difficulty" value={form.difficulty} type="range" min="1" max="5" width="95%" onChange={changeHandler}/>
-                    <Span color="chocolate" fWeight="bold">
-                        {inputs.difficulty}
-                    </Span>
+                    <input name="difficulty" value={form.difficulty} type="range" min="1" max="5" width="95%" onChange={changeHandler}/>
+                    <span color="chocolate" fWeight="bold">
+                        {form.difficulty}
+                    </span>
                         
                     {errors.difficulty && (<span>{errors.difficulty}</span>)}
                 </div>
@@ -171,13 +171,13 @@ const ActivityCreate = () => {
                     {errors.duration && (<span>{errors.duration}</span>)}
                 </div>
                 <div>
-                    <Select name="season" id="season" onChange={changeHandler} value={form.seasson}>
-                        <Option>Select here...</Option>
-                        <Option value="Autumn">Autumn</Option>
-                        <Option value="Winter">Winter</Option>
-                        <Option value="Spring">Spring</Option>
-                        <Option value="Summer">Summer</Option>
-                    </Select>
+                    <select name="season" id="season" onChange={changeHandler} value={form.seasson}>
+                        <option>Select here...</option>
+                        <option value="Autumn">Autumn</option>
+                        <option value="Winter">Winter</option>
+                        <option value="Spring">Spring</option>
+                        <option value="Summer">Summer</option>
+                    </select>
                     {errors.seasson && (<span>{errors.seasson}</span>)}
                     
                 </div>
@@ -193,7 +193,7 @@ const ActivityCreate = () => {
                             <button key={c} name={c} onClick={handleSelect} bground={`url("${
                                 countries?.find((country) => country.id === c)?.flags
                               }") no-repeat center/100%`}>
-                                
+
                               </button>
                         ))}
                     </div>

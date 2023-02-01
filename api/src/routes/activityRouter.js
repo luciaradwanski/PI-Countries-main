@@ -6,7 +6,6 @@ const {
     getActivitiesHandler, 
     getActDetailsHandler,
     createActivitiesHandler, 
-    modifyActivityHeadler,
     deleteActivityHeadler } = require('../Handlers/ActivitiesHandler')
 
 
@@ -36,7 +35,7 @@ activityRouter.get('/activities/:id', getActDetailsHandler)
 
 activityRouter.post('/activity', validate, createActivitiesHandler); 
 
-activityRouter.put('/activity/:id', modifyActivityHeadler);
+
 
 activityRouter.delete('/activity/:id', deleteActivityHeadler);
 

@@ -3,31 +3,16 @@ const {Country, Activity} = require('../db');
 const {postActivity, getActivities} = require('../Controllers/ActivityControllers')
 const getActivitiesHandler = async (req, res) => {
 
-    const allActivities = await getActivities();
-
-    res.send(allActivities);
     
-    // try{
+    try{
 
-    //     const allActivities = await Activity.findAll({ 
-    //         attributes: [
-    //             'name', 'difficulty','duration', 'seasson', 'id'
-    //         ],
-    //         include: [{model: Country, attributes: ['name']}]
-    //     });   
-        
-    //     if(allActivities.length>0){
-    //         res.status(200).send(allActivities)
-    //     }  
-    //     else{
-    //         res.status(404).json('No existen actividades')
-    //     }  
-        
-        
+        const allActivities = await getActivities()
+        res.status(200).json(allActivities)
 
-    // }catch(error){
-    //     res.status(404).json('No se pueden mostrar las actividades')
-    // }
+
+    }catch(error){
+        res.status(404).json('No se pueden mostrar las actividades')
+    }
 
 }
 
@@ -43,78 +28,15 @@ const getActDetailsHandler = async (req, res) => {
 }
 
 const createActivitiesHandler = async (req, res) => {
-    await postActivity(req.body);
-  
-    res.send("Activity created succesfully");
-    // const { name, difficulty, duration, seasson, countryId } = req.body;
-    
-    // try{
-
-    //     const validateAct = await Activity.findOne({
-    //         where: {
-    //           name: name,
-    //         },
-    //     });
-
-    //     if(!validateAct) {
-    //         const addAct = await Activity.create({
-    //             name: name,
-    //             difficulty: difficulty,
-    //             duration: duration,
-    //             seasson: seasson,
-    //             countryId: countryId,
-    //         });
-    //         const countrymatch = await Country.findAll({
-    //             where: {
-    //               id: countryId,
-    //             },
-    //         });
-    //         const resact = await addAct.addCountries(countrymatch);
-
-    //         return res.send(resact);
-    //     }
-    //     const countrymatch = await Country.findAll({
-    //         where: {
-    //           id: countryId,
-    //         },
-    //     });
-          
-        
-    //     const resact = await validateAct.addCountries(countrymatch);
-        
-    //     res.send(resact);
-        
-
-    // } catch(error){
-    //     res.status(404).json({message: 'Error, no se pudo crear actividad'})
-    // }
-};
-
-const modifyActivityHeadler = async (req, res) => {
-   
-    const {id} = req.params;
-    const {name, difficulty, duration, seasson} = req.body;
-
-    parseInt(difficulty);
-    /* Convierte un argumento de tipo cadena y 
-    devuelve un entero de la base especificada. */
-
-    try{
-
-        let detailAct = await Activity.findByPk(id);
-        detailAct = await Activity.update(
-            {name, difficulty, duration, seasson}, 
-            {where: {id: id,}}
-        );
-       
-        res.status(201).json({message: 'La actividad se ha modificado exitosamente!'}) 
-              
-
+    const {name, duration, difficulty, seasson, countries} = req.body;
+    try {
+        const create = await postActivity(name, duration, difficulty, seasson, countries)
+        res.staus(201).json(create)
     } catch (error) {
-        res.status(404).json({message: 'La actividad no se ha podido crear'})
-    }
-    
+        res.status(404).json({error: error.message})
+    }      
 };
+
 
 const deleteActivityHeadler = async (req, res) => {
     
@@ -141,6 +63,5 @@ module.exports = {
     getActivitiesHandler,
     getActDetailsHandler,
     createActivitiesHandler,
-    modifyActivityHeadler,
     deleteActivityHeadler,
 };

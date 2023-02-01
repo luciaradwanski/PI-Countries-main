@@ -1,17 +1,16 @@
 const { Country, Activity } = require("../db");
 
 const getActivities = async () => {
-  try {
-    const activities = await Activity.findAll();
-    return activities;
-  } catch (error) {
-    return error;
-  }
+  const activities = await Activity.findAll({ 
+    attributes: [
+        'name', 'difficulty','duration', 'seasson', 'countries'
+    ],
+    include: [{model: Country, attributes: ['name']}]
+});   
+  return activities;
 };
 
-const postActivity = async (
-  { name, difficulty, duration, seasson, countries }
-) => {
+const postActivity = async ({ name, difficulty, duration, seasson, countries }) => {
   try {
     for (let i = 0; i < countries.length; i++) {
       const [newActivity] = await Activity.findOrCreate({

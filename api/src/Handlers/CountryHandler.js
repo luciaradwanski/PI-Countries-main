@@ -24,8 +24,13 @@ const getCountriesHandler = async(req, res) => { //async
 
 const getCountryHandler = async(req, res) => { 
   const { id } = req.params;
-  const country = await getCountryById(id);
-  return country ? res.send(country) : res.send("Country not found");
+  try {
+    const country = await getCountryById(id);
+    res.status(200).json(country)
+  } catch (error) {
+    res.status(400).json({message: "Country not found"})
+    
+  }
 };
 
 
