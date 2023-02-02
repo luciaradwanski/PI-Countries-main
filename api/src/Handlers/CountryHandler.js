@@ -1,14 +1,14 @@
 const { Country, Activity} = require('../db')
 
-const {getCountryByName, getAllCountries, getCountryById} = require('../Controllers/CountryController')
+const {getCountryByName, getAllCountries, getCountryById, get} = require('../Controllers/CountryControllers')
 
 
 
 const getCountriesHandler = async(req, res) => { //async
-  const { name } = req.query;
-  let data;
-  try {
-    if (name) {
+    const { name } = req.query;
+    let data;
+    try {
+      if (name) {
       data = await getCountryByName(name);
       res.send(data);
     } else {
