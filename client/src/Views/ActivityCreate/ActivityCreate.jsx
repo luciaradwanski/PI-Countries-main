@@ -102,7 +102,7 @@ export default function ActivityCreate(){
         }
     }
     const handleSelect = (e) => {
-        setInput({...input, countries: [...input.countries, e.taget.value]})
+        setInput({...input, countries: [...input.countries, e.target.value]})
         setErrors(validate({...input, countries:[...input.countries, e.target.value]}))
     }
 
@@ -124,14 +124,14 @@ export default function ActivityCreate(){
             data.duration = input.duration
             data.difficulty = input.difficulty !== "" ? input.difficulty: ""
             data.seasson = input.seasson !== "" ? input.seasson : ""
-            data.countries = input.Country.length === 0 ? [] : input.countries
+            data.countries = input.countries.length === 0 ? [] : input.countries
             if (input.difficulty === "") {
                 data.difficulty = "1"
             }
             if (input.seasson=== "") {
                 data.seasson = "Summer"
             }
-            if (input.Country.length === 0) {
+            if (input.countries.length === 0) {
                 data.countries = ["PAN"]
             }
         
@@ -156,10 +156,7 @@ export default function ActivityCreate(){
                     countries: [],
                 });
             }
-            setTimeout(() => {
-                navigate('/countries')
-            }, 1000); 
-    
+            
     
         }
     }
