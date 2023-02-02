@@ -12,29 +12,38 @@ const getActivities = async () => {
         }
       }
     });  
+
+    /**include: {
+        model: Country,
+        attributes: ["name", "id"],
+        through: {
+          attributes: [],
+        }
+      } */
   
     return actList;
     
 };
 
-const postActivity = async (
-  { name, difficulty, duration, seasson, countries }
-) => {
+const postActivity = async ({ name, difficulty, duration, seasson, countries }) => {
   try {
-    for (let i = 0; i < countries.length; i++) {
-      const [newActivity] = await Activity.findOrCreate({
-        where: { name },
-        defaults: {
-          name,
-          difficulty,
-          duration,
-          seasson,
-        },
-      });
 
-      const country = await Country.findByPk(countries[i]);
-      country.addActivity(newActivity);
-    }
+    const newActivity = await Activity.create({name, difficulty, seasson, duration})
+    return newActivity;
+    // for (let i = 0; i < countries.length; i++) {
+    //   const [newActivity] = await Activity.findOrCreate({
+    //     where: { name },
+    //     defaults: {
+    //       name,
+    //       difficulty,
+    //       duration,
+    //       seasson,
+    //     },
+    //   });
+
+    //   const country = await Country.findByPk(countries[i]);
+    //   country.addActivity(newActivity);
+    // }
   } catch (error) {
     console.log(error);
   }

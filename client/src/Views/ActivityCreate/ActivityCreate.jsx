@@ -5,12 +5,76 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-
+export const DivForm = styled.div`
+    background-image: url(https://images.pexels.com/photos/2748018/pexels-photo-2748018.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-repeat: no-repeat;
+    font-family:'Raleway';
+    display: flex;
+    flex-direction:column;   
+    justify-content:space-evenly;
+    h1{
+        font-size: 40px;
+        color: white;
+    }
+`
 
 export const Form = styled.form`
-    margin-top: 120px;
+    color: white;
+    background-color: black;
+    opacity: 80%;
+    height: 200px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 60px;
+`
+
+export const DivSelect = styled.div`
+
+
+   
+`
+
+export const ButtonUno = styled.div`
+    color: red;
+    background-color: white;
+    opacity: 80%;
+    width: 100px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(600px);
+    border-radius: 40px;
+    &:hover{
+        background-color: darksalmon;
+    }
+`
+
+
+export const ButtonDos = styled.div`
+    color: red;
+    background-color: white;
+    opacity: 80%;
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100px);
+    transform: translateY(20px);
+    border-radius: 40px;
+    &:hover{
+        background-color: darksalmon;
+    }
+`
+export const Label = styled.label`
+    padding-right: 10px;
+    text-align: right;
+    width: 30%;
+    margin-right: 1rem;
 `
 
 /* Cuando yo escriba esta información que quiero que suceda con esa informacion
@@ -162,44 +226,37 @@ export default function ActivityCreate(){
     }
 
     const [open, setOpen] = useState(false);
-    // function controller() {
-    //   if (open === false && input.Country === "") {
-    //     setOpen(false)
-    //   } else {
-    //     setOpen(true)
-    //   }
-    // }
     
     const deleteHandle = (e) => {
         setInput({...input, countries: []});
     }
     return(
-        <div>
+        <DivForm>
             <Link to='/home'><button>Back to Home</button></Link>
             <br />
             <h1>Crear Actividad Turística</h1>
             
-            <form onSubmit={(e)=>handleSubmit(e)}>
+            <Form onSubmit={(e)=>handleSubmit(e)}>
                 <div>
-                    <label>Nombre</label>
+                    <Label>Nombre</Label>
                     <input type='text' value={input.name} name='name' onChange={e=>handleChange(e)}></input>                            
                     {errors.name && (<p>{errors.name}</p>)}
                 </div>
                         
                 <div>
-                    <label>Dificultad</label>
+                    <Label>Dificultad</Label>
                     <input type='number' value={input.difficulty} name = 'difficulty' min='1' max='5' onChange={e=>handleChange(e)}></input>                            
                     {errors.difficulty && (<p>{errors.difficulty}</p>)}
                 </div>
 
                 <div>
-                    <label>Duracion</label>
+                    <Label>Duracion</Label>
                     <input type='text' value={input.duration} name = 'duration' onChange={e=>handleChange(e)}></input>                            
                     {errors.duration && (<p>{errors.duration}</p>)}
                 </div>
                         
                 <div>
-                    <label>Temporada</label>
+                    <Label>Temporada</Label>
                     <select name="seasson" onChange={e => handleChange(e)}>
                         <option value={"Summer"}>Verano</option>
                         <option value={"Autumn"}>Otoño</option>
@@ -208,25 +265,26 @@ export default function ActivityCreate(){
                     </select>
                     {errors.seasson && (<p>{errors.seasson}</p>)}
                 </div>
-                <div>
-                    <label>Countries</label>
-                    <select onChange={(e)=>handleSelect(e)} name="countries">
+                <DivSelect>
+                    <Label>Countries</Label>
+                    <select onClick={() => setOpen(!open)} onChange={(e)=>handleSelect(e)} name="countries">
+                    {!open && <option>Elegir pais</option>}
                         {activities.map((c)=>(
                             <option key={c.id} value={c.name}>{c.name}</option>
                         ))}
                     </select>       
-                    
-                </div>                         
+                    <ButtonDos type="button" onClick={e => deleteHandle(e)}>Clean</ButtonDos>
+                </DivSelect>                         
                 {input.countries.length === 0 && (<p>{errors.countries}</p>)}
 
                 {input.countries.length !== 0 && 
                     <div>
                         <ul><li>{input.countries.map((c) => c + ", ")}</li></ul>
                     </div>}       
-                <button type="submit">Crear Actividad</button>                        
+                <ButtonUno type="submit">Crear Actividad</ButtonUno>                        
                     
-            </form>
+            </Form>
             
-        </div>
+        </DivForm>
     )
 }

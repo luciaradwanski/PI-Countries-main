@@ -4,11 +4,11 @@ const axios = require("axios");
 
 const getApiInfo = async () => {
    
-    try {
+    
       const response = await axios.get("https://restcountries.com/v3.1/all");
       const { data } = response;
       data.map(async (c) => {
-        await Country.findOrCreate({
+        return await Country.findOrCreate({
           where: { name: c.name.official },
           defaults: {
             id: c.cca3,
@@ -22,27 +22,8 @@ const getApiInfo = async () => {
           },
         });
       });
-      console.log("Countries loaded in DB succesfully");
+     
   
-      if (query) {
-        const response = await Country.findAll({
-          where: { name: { [Op.iLike]: `%${query}%` } },
-        });
-        return response && response;
-      }
-  
-      const countriesDB = await Country.findAll({
-        include: {
-          model: Activity,
-          attributes: ["name", "difficulty", "duration", "seasson"],
-          through: { attributes: [] },
-        },
-      });
-  
-      return countriesDB && countriesDB;
-    } catch (error) {
-      console.log(error);
-    }
   };
   
   const getAllCountries = async () => {
@@ -53,7 +34,7 @@ const getApiInfo = async () => {
         through: { attributes: [] },
       },
     });
-    //[countries] || []
+    
     return countries;
   };
   
@@ -61,7 +42,10 @@ const getApiInfo = async () => {
     const countries = await Country.findAll({
       where: {
         name: { [Op.iLike]: `%${name}%`,},
-      },
+      }, include: {
+        model: Activity,
+        attributes: ["name", "difficulty", "seasson", "duration"],
+      }
       
     });
   
@@ -74,7 +58,8 @@ const getApiInfo = async () => {
       include: [
         {
         model: Activity,
-        through: { attributes: [] },
+        attributes: ["name", "difficulty", "seasson", "duration"],
+        through: [],
         },
       ]
     });

@@ -9,9 +9,13 @@ import styled from 'styled-components';
 
 /* Styles de mi Home */
 export const DivContainerHome = styled.div`
-  margin-top: 120px;
+    margin-top: 120px;
+    
   
-  
+`
+export const DivCountries = styled.div`
+    display: flex;
+    flex-direction: column;
 `
 export const DivFiltros = styled.div`
     display: flex;
@@ -40,8 +44,18 @@ export const Select = styled.select`
 const Home = () => {
 
     const dispatch = useDispatch();
-    const allCountries = useSelector(state => state.allCountries)
-    const allActivities = useSelector(state => state.activities);
+    const allCountries = useSelector(state => state.allCountries) /**Traigo todos los paises */
+    let allActivities = useSelector(state => state.activities); /* Traigo todas las actividades */
+    // let actName = allActivities.map((a) => a.name)
+    // let actUnica = [];
+
+    // /*Pusheo los nombres de las actividades */
+    // for(var i = 0; i < actName.length; i++){
+    //     const result = actName[i];
+    //     if(!actUnica.includes(actName[i])) {
+    //         actUnica.push(result);
+    //     }
+    // }
     /*
     
     let activitis = useSelector((state) => state.activitis); // Traigo todas las actividades
@@ -146,6 +160,7 @@ const Home = () => {
     /* Filtro por Actividad*/
 
     const handleFilterByActivity = (e) => {
+        e.preventDefault()
         const value = e.target.value;
         dispatch(filterByActivity(value));
         setCurrentPage(1);
@@ -200,29 +215,28 @@ const Home = () => {
                         <option value="4" label="4">4</option>
                         <option value="5" label="5">5</option>
                     </Select>
-                    <Select name="activities" onChange={(e) => handleFilterByActivity(e)}>
-                        <option value="Cycling" label="Cycling">Cycling</option>
-                        <option value="Mountain biking" label="Mountain biking">Mountain biking</option>
-                        <option value="Walking" label="Walking">Walking</option>
-                        <option value="Hiking" label="Hiking">Hiking</option>
-                        <option value="Fishing" label="Fishing">Fishing</option>
-                        <option value="Canoeing and water sports" label="Canoeing and water sports">Canoeing and water sports</option>
-                        <option value="Camping" label="Camping">Camping</option>
-                        <option value="Safari" label="Safari">Safari</option>
-                        <option value="Swimming" label="Swimming">Swimming</option>
-                        <option value="Sailing" label="Sailing">Sailing</option>
-                        <option value="Windsurfing" label="Windsurfing">Windsurfing</option>
-                        <option value="Kayaking" label="Kayaking">Kayaking</option>
-                        <option value="Water polo" label="Water polo">Water polo</option>
-                        <option value="Snowboarding" label="Snowboarding">Snowboarding</option>
-                        {/* {allActivities.map((act) => {
-                            return <option value= {act.name}>{act.name}</option>
-                        })}     */}
-                    </Select>
+                    {/* <select>
+                        {actName.map((act) => {
+                            return (
+                                <option value= {act.name}>{act.name}</option>)
+                        })}
+                    </select> */}
+                
+                    {/* <select name="" id="">
+                        {
+                            actUnica.length > 0 && actUnica.map((a, index) => {
+                                return (
+                                    <option key={index} value={`${a}`}>
+                                        {`${a}`}
+                                    </option>
+                                )
+                            })
+                        }
+                    </select> */}
                     
                 </DivFiltros>
                 
-                <div>
+                <DivCountries>
                     {currentCountries?.map((el) =>{
                         return(
                             <div>
@@ -237,6 +251,9 @@ const Home = () => {
                             </div>
                         );                        
                     })}
+                    
+                </DivCountries>
+                <div>
                     <Paginado
                         countriesPerPage={countriesPerPage}
                         allCountries={allCountries.length}

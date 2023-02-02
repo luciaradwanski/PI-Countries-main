@@ -33,39 +33,9 @@ export const DivSpinner = styled.div`
 const Loading = () => {
     return (
         <DivLoad>
-            <div> {/* <NavBar /> */}</div>
-            <DivSpinner className="spinner">MAL </DivSpinner>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
-            <h2>MAL</h2>
+            
+            <img src="https://images.pexels.com/photos/220201/pexels-photo-220201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+            <h2>{error || "Loading..."}</h2>
         </DivLoad>
     );
 }

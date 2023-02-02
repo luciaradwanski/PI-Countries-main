@@ -25,7 +25,7 @@ const initialState = {
     allCountries: [],
     countries: [],
     detail: [],
-    activities: [],
+    activities: [], 
     activityDetail: [],
 };
 const rootReducer = (state = initialState, action) => {
@@ -205,17 +205,17 @@ const rootReducer = (state = initialState, action) => {
            se modifican la prop que quiero modificar, en el llamado allCountries tambien seteamos toda 
            la info de activity por nombre para despues filtrarlos!*/
 
-           let filterActivityName;
-           if (action.payload === "all") filterActivityName = state.countries;
-           else filterActivityName = state.countries.filter((country) =>
+            let filterActivityName;
+            if (action.payload === "all") filterActivityName = state.countries;
+            else filterActivityName = state.countries.filter((country) =>
                country.Activities.filter((activity) => activity.name === action.payload).length > 0
-           );
+            );
            
            
-           return {
+            return {
                ...state,
                allCountries: filterActivityName,
-           };
+            };
         case ORDER_COUNTRIES:
             let order = state.countries;
 

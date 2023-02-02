@@ -5,17 +5,7 @@ import CardCountry from '../CardCountry/CardCountry';
 import styled from 'styled-components';
 
 export const DivCards = styled.div`
-    
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    align-content: center;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 30px;
-    margin-top: 4px;
-    margin-left: 65px;
+   
 
 `
 
