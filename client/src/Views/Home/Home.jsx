@@ -42,7 +42,19 @@ const Home = () => {
     const dispatch = useDispatch();
     const allCountries = useSelector(state => state.allCountries)
     const allActivities = useSelector(state => state.activities);
-     
+    /*
+    
+    let activitis = useSelector((state) => state.activitis); // Traigo todas las actividades
+    let activitisName = activitis.map(e => e.name)           // mapeo los nombres de las actividades en una variable
+    let unicos = [];                                         // creo un arreglo en donde voy a pushear los nombres Actividades
+
+    for (var i = 0; i < activitisName.length; i++) {      // pusheo todos los nombres de las actividades y los repetidos los dejo afuera
+      const elemento = activitisName[i];
+      if (!unicos.includes(activitisName[i])) {
+        unicos.push(elemento);
+      }
+    }
+    */ 
     const [currentPage, setCurrentPage] = useState(1)
     const [countriesPerPage, ] = useState(9) //setCountriesPerPage
     
@@ -203,9 +215,9 @@ const Home = () => {
                         <option value="Kayaking" label="Kayaking">Kayaking</option>
                         <option value="Water polo" label="Water polo">Water polo</option>
                         <option value="Snowboarding" label="Snowboarding">Snowboarding</option>
-                        {allActivities && allActivities.map((act) => {
+                        {/* {allActivities.map((act) => {
                             return <option value= {act.name}>{act.name}</option>
-                        })}   
+                        })}     */}
                     </Select>
                     
                 </DivFiltros>

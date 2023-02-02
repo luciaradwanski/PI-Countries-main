@@ -1,18 +1,31 @@
 const {Country, Activity} = require('../db');
 
-const {postActivity, getActivities, } = require('../Controllers/ActivityControllers')
+const {postActivity, getActivities} = require('../Controllers/ActivityControllers')
+
 const getActivitiesHandler = async (req, res) => {
 
-    
-    try{
+    const { name } = req.query;
+    let allActivities ;
+    try {
+        if (name) { 
+            const allActivities = await getActivities(name);
+            res.status(200).json({allActivities});
 
-        const allActivities = await getActivities()
-        res.status(200).json(allActivities)
+        } else {
+            allActivities = await getActivities();
+            res.status(200).json({allActivities});
+        }
+    } catch (error) {
+    res.status(400).json({error:error.message});
+  }    
+    // try{
+    //     const allActivities = await getActivities();
 
+    //     res.send(allActivities);
 
-    }catch(error){
-        res.status(404).json('No se pueden mostrar las actividades')
-    }
+    // }catch(error){
+    //     res.status(404).json('No se pueden mostrar las actividades')
+    // }
 
 }
 
@@ -20,7 +33,7 @@ const getActDetailsHandler = async (req, res) => {
     let {id} = req.params; 
     id = parseInt(id); 
     try {
-        const activity = await Activity.findByPk(id);
+        const activity = await Activity.findByPk(id, );
         res.status(200).json(activity);
     } catch (error) {
         res.status(404).json({message: 'Actividad no encontrada'})
@@ -28,13 +41,12 @@ const getActDetailsHandler = async (req, res) => {
 }
 
 const createActivitiesHandler = async (req, res) => {
-    const {name, duration, difficulty, seasson, countries} = req.body;
     try {
-        const create = await postActivity(name, duration, difficulty, seasson, countries)
-        res.staus(201).json(create)
+        const create = await postActivity(req.body);
+        res.send(200).json(create);
     } catch (error) {
-        res.status(404).json({error: error.message})
-    }      
+        res.status(400).json({error: error.message})
+    }
 };
 
 
