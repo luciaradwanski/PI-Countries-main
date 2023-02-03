@@ -1,29 +1,33 @@
+
+
+//import {getAllCountries, getAllActivities, getAllContinents, loadCountries} from './Redux/.....actions'
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
-import React from 'react';
-import Landing from './components/Landing/Landind';
-import NavBar from './components/NavBar/NavBar';
-import Home from './components/Home/Home';
-import ActivityCreate from './components/ActivityCreate/ActivityCreate';
-import Detail from './components/Detail/Detail';
+import Landing from './Components/Loading';
+import NavBar from './Components/NavBar';
+import Home from './Components/Home';
 
 
-function App() {
+export default function App() {
+  
+
+  
+  
   return (
-    <BrowserRouter>
-      <React.Fragment>
-        <Route exact path ='/' component = {Landing}/>
-        <Route path ='/' component = {NavBar}/>
-        <Route exact path = '/countries' component = {Home}/>
-        <Route path ='/countries/:id' component = {Detail}/>         
-        <Route path ='/activity' component = {ActivityCreate}/>               
-      </React.Fragment>      
-    </BrowserRouter>    
+    <div className="App">
+      <h1>Henry Countries</h1>
+      <Routes>
+        <Route exact path='/' element={<Landing/>}/>
+        <Route path='/home' 
+          element={<div><NavBar/><Home/></div>}>
+        </Route>
+        <Route path='/home/country/' 
+          element={<div><NavBar/><CountryDetail/></div>}>
+        </Route>
+        <Route path='/create/' 
+          element={<div><NavBar/><CreateForm/></div>}>
+        </Route>
+      </Routes>
+    </div>
   );
 }
-
-export default App;
-
-
-
 

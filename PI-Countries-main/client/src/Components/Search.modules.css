@@ -1,0 +1,40 @@
+.container{
+    margin: 0;
+    padding: 135px 0;
+    border-radius: 25px;
+    height: fit-content;
+    width: fit-content;
+    background-color: white;
+    background-size: cover;
+    position: center;
+    display: flex;
+}
+
+.span{
+    color: rgb(136, 3, 47);
+    font-weight: lighter;
+    margin: 0;
+    background-color: transparent;
+}
+
+.button{
+    display: inline;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 15px;
+    border: none;
+    color: black;
+    background-color: palevioletred;
+    font-size: 18px;
+    cursor: pointer;
+    transition: ease all 1s;
+}
+
+.button:hover{
+    background-color: brown;
+    color: white;
+    transition: ease all 1s;
+    transform: translateX(10px);
+}
