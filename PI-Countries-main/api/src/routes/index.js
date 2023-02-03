@@ -98,7 +98,7 @@ router.get("/loadCountriesDB", async (req, res) => {
     let Countrys = await getCountriesToDataBase();
     try {
         let dbase = await Countrys.map(e => {
-        Country.create({
+        Countrys.create({
             ID: e.Id,
             Name: e.Name,
             Img: e.Img,
