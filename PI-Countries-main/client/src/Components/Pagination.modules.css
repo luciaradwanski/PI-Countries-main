@@ -1,0 +1,20 @@
+.container{
+    background-color: whitesmoke;
+    color: black;
+    margin: 5px;
+    padding: 5px 15px;
+    font-size: 18px;
+    display: inline;
+    border-radius: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+    cursor: pointer;
+    transition: ease all 1s;
+}
+
+.container:hover{
+    background-color: palevioletred;
+    color: black;
+    transition: easy all 1s;
+}

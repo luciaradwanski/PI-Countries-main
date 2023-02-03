@@ -1,0 +1,11 @@
+.container{
+    margin: 0;
+    padding: 135px 0;
+    border-radius: 25px;
+    height: fit-content;
+    width: fit-content;
+    background-color: white;
+    background-size: cover;
+    position: center;
+    display: flex;
+}
