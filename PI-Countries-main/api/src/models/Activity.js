@@ -6,20 +6,24 @@ module.exports = (sequelize) => {
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
+            },
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
                 unique: true,
             },
-            difficulty: {
-                type: DataTypes.ENUM('1', '2', '3', '4', '5'),
+            Dificultad: {
+                type: DataTypes.ENUM("1","2","3","4","5"),
             },
-            duration: {
+            Temporada: {
+                type: DataTypes.ENUM("Verano","Otoño","Invierno","Primavera"),
+            },
+            Duración: {
                 type: DataTypes.STRING,
-            },
-            season: {
-                type: DataTypes.ENUM('Summer', 'Spring', 'Winter', 'Autumn'),
-            },
-
-        },
-        {timestamps: false, },
+            },        
+        
+        },    {timestamps: false, },
         
     );
 };

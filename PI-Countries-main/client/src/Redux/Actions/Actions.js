@@ -13,11 +13,11 @@ import {
 
 import axios from "axios";
 
-const SERVER = process.env.REACT_APP_SERVER || "http://localhost:3001";
+// const SERVER = process.env.REACT_APP_SERVER || "http://localhost:3001";
 
 export const getAllCountries = () => { 
     return async function(dispatch){
-      const api = await axios.get(`${SERVER}/countries`) //countries?name=${name ? name : ""}
+      const api = await axios.get(`http://localhost:3001/countries`) //countries?name=${name ? name : ""}
       const countries = api.data;
       dispatch({type: GET_ALL_COUNTRIES, payload: countries})
     }
@@ -26,7 +26,7 @@ export const getAllCountries = () => {
 
 export const getCountriesByName = (name) => {
     return async (dispatch) => {
-      const apiName = await axios.get(`${SERVER}/countries?name=${name}`)
+      const apiName = await axios.get(`http://localhost:3001/countries?name=${name}`)
       const country = apiName.data;
       dispatch({ type: GET_COUNTRY_BY_NAME, payload: country })
     }    
@@ -34,7 +34,7 @@ export const getCountriesByName = (name) => {
 
 export const getCountryById = (id) => {
   return async function(dispatch){
-    const apiData = await axios.get(`${SERVER}/countries/${id}`)
+    const apiData = await axios.get(`http://localhost:3001/countries/${id}`)
     dispatch({type: GET_COUNTRY_BY_ID, payload: apiData.data})
   }
 }
