@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
 import style from '../Comp Styles/Home.module.css'
+import SearchBar from "./SearchBar";
 
 export default function Home(){
 
@@ -15,12 +16,12 @@ export default function Home(){
         dispatch(getCountries())
     },[dispatch])
 
-    const [orden, setOrden] = useState('')
-    const [population, setPopulation] = useState('')
-    const [area, setArea] = useState('')
+    const [, setOrden] = useState('') //orden
+    const [, setPopulation] = useState('') //population
+    
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [charactersPerPage, setCharactersPerPage] = useState(9)
+    const [charactersPerPage, ] = useState(9) //setCharactersPerPage
     const indexOfLastCharacter = currentPage * charactersPerPage
     const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage
     const currentCountries = allCountries.slice(indexOfFirstCharacter, indexOfLastCharacter)
@@ -86,6 +87,7 @@ export default function Home(){
                     paginado={paginado}
 
                 />
+                <SearchBar/>
                 <div class={style.cards}>
 
                     {currentCountries.map( el => {

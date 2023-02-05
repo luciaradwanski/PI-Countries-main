@@ -3,7 +3,7 @@ import axios from 'axios'
 export const GET_COUNTRIES = "GET_COUNTRIES";
 // export const GET_ACTIVITIES = "GET_ACTIVITIES";
 // export const POST_ACTIVITY = "POST_ACTIVITY"
-// export const GET_NAME_COUNTRY = "GET_NAME_COUNTRY";
+export const GET_NAME_COUNTRY = "GET_NAME_COUNTRY";
 // export const GET_DETAIL = "GET_DETAIL";
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
 // export const FILTER_BY_ACTIVITY = "FILTER_BY_ACTIVITY";
@@ -33,12 +33,16 @@ export const filterByPopulation = (payload) => {
     return {type: FILTER_POPULATION, payload}
 }
 
-// export const getNameCountry = (name) => {
-//     return async function (dispatch){
-//         var json = await axios(`http://localhost:3001/countries?name=${name}`,{})
-//         return dispatch({ type: GET_NAME_COUNTRY, payload: json.data })
-//     }
-// }; 
+export const getNameCountry = (name) => {
+    return async function (dispatch){
+        try {
+            var json = await axios("http://localhost:3001/countries?name=" + name);
+            return dispatch({ type: GET_NAME_COUNTRY, payload: json.data })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}; 
 
 //OJOOOOOO VIEJA
 // export const getCountriesByName = (name) => {
