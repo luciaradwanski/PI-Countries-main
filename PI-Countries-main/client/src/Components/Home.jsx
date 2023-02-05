@@ -1,58 +1,103 @@
-import React from "react";
+import React, { useState } from "react";
+import {useEffect } from "react"; //useState
 import { useDispatch, useSelector } from "react-redux";
-import { getActivities, orderCountries } from "../Redux/Actions/Actions";
-import style from './Home.modules.css';
-import {paginate, cutterPage} from '../Utils/Paginate';
-import CardsContainer from "./CardsContainer";
-import Filters from "./Filters";
-import Pagination from "./Pagination";
-import Loading from "./Loading";
+import {filterByContinent, filterByPopulation, getCountries, orderByName } from "../Actions";
+import { Link } from "react-router-dom";
+import Card from "./Card";
+import Paginado from "./Paginado";
+import style from '../Comp Styles/Home.module.css'
 
-export default function Home (){
+export default function Home(){
 
-    const countries = useSelector((state) => state.countriesReducer.countries);
-    let modifiedCountries = useSelector(
-        (state) => state.countriesReducer.modifiedCountries
-    );
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
+    const allCountries = useSelector((state) => state.countries)
+    useEffect(()=>{
+        dispatch(getCountries())
+    },[dispatch])
 
-    /*Paginado*/
-    const [currentPage, setCurrentPage] = useState(1);
-    const [paginatedCountries, setPaginatedCountries] = useState(
-    cutterPage(currentPage, 10, modifiedCountries || countries)
-    );
+    const [orden, setOrden] = useState('')
+    const [population, setPopulation] = useState('')
+    const [area, setArea] = useState('')
 
-    useEffect(() => {
-        dispatch(orderCountries());
-        dispatch(getActivities());
-    }, [dispatch]);
+    const [currentPage, setCurrentPage] = useState(1)
+    const [charactersPerPage, setCharactersPerPage] = useState(9)
+    const indexOfLastCharacter = currentPage * charactersPerPage
+    const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage
+    const currentCountries = allCountries.slice(indexOfFirstCharacter, indexOfLastCharacter)
 
-    useEffect(() => {
-        setPaginatedCountries(cutterPage(currentPage, 10, modifiedCountries));
-    }, [modifiedCountries, currentPage]);
+    const paginado = (pageNumber) => {
+        setCurrentPage(pageNumber)
+    }
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        dispatch(getCountries());
+    }
+
+    const handleFilterContinent = (e) => {
+        dispatch(filterByContinent(e.target.value))
+    }
+
+    const handleSort = (e) => {
+        e.preventDefault();
+        dispatch(orderByName(e.target.value));
+        setCurrentPage(1);
+        setOrden(`Ordenado ${e.target.value}`)
+    }
+
+    const handleFilterPopulation = (e) => {
+        dispatch(filterByPopulation(e.target.value));
+        setCurrentPage(1);
+        setPopulation(`Filtrado ${e.target.value}`)
+    }
+
     
     return(
-        <div className={style.container}>
-            <Filters/>
-            <div className={style.container}>
-                {paginate(modifiedCountries?.length)?.map((p) => (
-                    <Pagination 
-                        key={p} 
-                        num={p} 
-                        setCurrentPage={setCurrentPage}
-                    />
-                ))}
-            </div>
-            <div>
-                {modifiedCountries?.length ? (
-                    <CardsContainer
-                        modifiedCountries={
-                            paginatedCountries?.length
-                            ? paginatedCountries
-                            : modifiedCountries
-                        }
-                    />
-                ) : (<Loading error={modifiedCountries.error}/>)}
+        <div>
+            <Link to='/countries'>Crear actividades</Link>
+            <h1>APP OF THE COUNTRIES</h1>
+            <button onClick={(e) => handleClick(e)}>Volver a cargar todos los paises</button>
+            <div >
+                <div class={style.filtrado}>
+
+                <select onChange={(e) => handleSort(e)}>
+                    <option value="asc">Ascendente</option>
+                    <option value="desc">Descendente</option>
+                </select>
+                <select onChange={(e) => handleFilterContinent(e)}>
+                    <option value="All">Todos</option>
+                    <option value="Europe">Europe</option>
+                    <option value="South America">South America</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Antarctica">Antarctica</option>
+                    <option value="Africa">Africa</option>
+                    <option value="North America">North America</option>
+                    <option value="Oceania">Oceania</option>
+                </select>
+                <select onChange={(e) => handleFilterPopulation(e)}> 
+                    <option value="ASC">Population Max</option>
+                    <option value="DES">Population Min</option>
+                </select>
+                </div>
+
+                <Paginado
+                    charactersPerPage={charactersPerPage}
+                    allCountries={allCountries.length}
+                    paginado={paginado}
+
+                />
+                <div class={style.cards}>
+
+                    {currentCountries.map( el => {
+                        return (
+                            <fragment>
+                                <Link to={"/home" + el.id}>
+                                    <Card name={el.name} continent={el.continent} image={el.image}/>
+                                </Link>
+                            </fragment>
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )

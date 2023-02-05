@@ -1,0 +1,12 @@
+.filtrado{
+    display: flex;
+    justify-content: space-around;   
+}
+
+.cards{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;     /* cuando los elementos no puedan quedar en la misma fila, entonces se muevan al renglón inmediato */
+    margin: 30px;
+   margin-bottom: 30px;
+}

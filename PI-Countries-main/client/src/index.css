@@ -1,19 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
-*{
+/* *{
   margin: 0;
   padding: 0;
   border: 0;
   box-sizing: border-box;
-}
+} */
+
 body {
+  background: url('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-size: cover;
+  background-position: center;
+  height: 200vh;
+  background-repeat: no-repeat;
   font-family: 'Poppins';
+  background-color: black;
+  color: white;
 }
 
 
-select, input{
+select, input, button{
   padding: 10px 15px;
   border-radius: 25px;
   color: #d2691e;
   outline: none;
+  border: none;
+}
+
+button{
+  margin-bottom: 40px;
+}
+
+button:hover{
+  background-color: rgb(150, 229, 247);
+  color: black;
+}
+
+select:hover{
+  background-color: rgb(150, 229, 247);
+  color: black;
 }
