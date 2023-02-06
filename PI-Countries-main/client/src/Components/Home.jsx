@@ -55,7 +55,7 @@ export default function Home(){
     
     return(
         <div>
-            <Link to='/countries'>Crear actividades</Link>
+            <Link to='/activity'>Crear actividades</Link>
             <h1>APP OF THE COUNTRIES</h1>
             <button onClick={(e) => handleClick(e)}>Volver a cargar todos los paises</button>
             <div >

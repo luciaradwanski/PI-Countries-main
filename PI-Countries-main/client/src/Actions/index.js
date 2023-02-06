@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export const GET_COUNTRIES = "GET_COUNTRIES";
-// export const GET_ACTIVITIES = "GET_ACTIVITIES";
-// export const POST_ACTIVITY = "POST_ACTIVITY"
+export const GET_ACTIVITIES = "GET_ACTIVITIES";
+export const POST_ACTIVITY = "POST_ACTIVITY"
 export const GET_NAME_COUNTRY = "GET_NAME_COUNTRY";
 // export const GET_DETAIL = "GET_DETAIL";
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
@@ -44,35 +44,26 @@ export const getNameCountry = (name) => {
     }
 }; 
 
-//OJOOOOOO VIEJA
-// export const getCountriesByName = (name) => {
-//     return async (dispatch) => {
-//       const apiName = await axios.get(`http://localhost:3001/countries?name=${name}`)
-//       const country = apiName.data;
-//       dispatch({ type: GET_COUNTRY_BY_NAME, payload: country })
-//     }    
-// };
 
 // export const filterByActivity = (payload) => {
 
 //     return { type: FILTER_BY_ACTIVITY, payload: payload }
 // }
 
-// export const getActivities = () => {
-//     return async function (dispatch){
-//         const act = await axios.get("http://localhost:3001/activities")
-//         const actCountry = act.data;
-//         return  dispatch({ type: GET_ACTIVITIES, payload: actCountry })
-//     }
-// }; 
+export const getActivities = () => {
+    return async function (dispatch){
+        const act = await axios.get("http://localhost:3001/activities", {})
+        return  dispatch({ type: GET_ACTIVITIES, payload: act.data })
+    }
+}; 
 
-// export const postActivity = (payload) => {
-//     return async function (dispatch){
-//         const act = await axios.post("http://localhost:3001/activities",payload)
-//         const postAct = act.data;
-//         return dispatch({ type: POST_ACTIVITY, payload: postAct });             
-//     }           
-// }; 
+export const postActivity = (payload) => {
+    return async function (dispatch){
+        const response = await axios.post("http://localhost:3001/activities",payload)
+        console.log(response)
+        return response;
+    }           
+}; 
 
 
 
