@@ -76,31 +76,31 @@ function rootReducer (state = initialState, action){
         
     
 
-        // case FILTER_BY_ACTIVITY:
+        case FILTER_BY_ACTIVITY:
             
-        //     var filt=[];
-        //     allCountries = state.allCountries;
-        //     allCountries.forEach(el => {
-        //         el.activities.forEach((act) => {
-        //             if (act.name === action.payload){
-        //                 filt.push(el)
-        //             }
-        //         })
-        //     }) 
-        //         //ALTERNATIVA EN FOR ANTIGUO PARA EL CASO DE ARRIBA
-        //      /*for(var i=0; i<allCountries.length;i++){
-        //             for(var j=0; j<allCountries[i].activities.length;j++){
-        //                 if(allCountries[i].activities[j].name === action.payload){
-        //                     filt.push(allCountries[i])
-        //                 }
-        //             }
-        //         } */                          
-        //         console.log('reducer filterAct')
-        //         console.log(filt)
+            var filt=[];
+            allCountries = state.allCountries;
+            allCountries.forEach(el => {
+                el.activities.forEach((act) => {
+                    if (act.name === action.payload){
+                        filt.push(el)
+                    }
+                })
+            }) 
+                //ALTERNATIVA EN FOR ANTIGUO PARA EL CASO DE ARRIBA
+             /*for(var i=0; i<allCountries.length;i++){
+                    for(var j=0; j<allCountries[i].activities.length;j++){
+                        if(allCountries[i].activities[j].name === action.payload){
+                            filt.push(allCountries[i])
+                        }
+                    }
+                } */                          
+                console.log('reducer filterAct')
+                console.log(filt)
 
                 
 
-        //         return {...state, countries: filt}
+                return {...state, countries: filt}
 
         case ORDER_BY_NAME:
             let sortedArr = action.payload === 'asc' ? 

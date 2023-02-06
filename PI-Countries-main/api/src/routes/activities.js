@@ -8,7 +8,7 @@ router.get('/', async (req,res) => {
 
     try{
 
-        const allActivities = await Activity.findAll({ attributes: ['name', 'id']});   
+        const allActivities = await Activity.findAll({ attributes: ['name', 'id', 'duration', 'difficulty', 'season']});   
         
         if(allActivities.length>0){
             res.status(200).send(allActivities)
@@ -40,11 +40,11 @@ router.post('/', async (req,res)=>{
            
            const newActivity = await Activity.create({name, difficulty, duration, season })
 
-           let countries = await Country.findAll({
-               where: { name: paises}
-           })
+        //    let countries = await Country.findAll({
+        //        where: { name: paises}
+        //    })
 
-           newActivity.addCountry(countries) 
+           newActivity.addCountry(paises) 
 
            res.status(200).json('La actividad se ha creado exitosamente!')
         }        

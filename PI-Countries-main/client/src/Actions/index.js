@@ -69,10 +69,10 @@ export function postActivity(payload){
 
 
 
-export const getCountryDetail = (id) => {
+export const getDetail = (id) => {
     return async function (dispatch){
         try {
-            const api = await axios(`http://localhost:3001/countries/${id}`)
+            const api = await axios('http://localhost:3001/countries/' + id)
             return dispatch({type: GET_DETAIL, payload: api.data})
         } catch (error) {
             console.log(error)
