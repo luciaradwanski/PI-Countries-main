@@ -24,8 +24,8 @@
     height: 200px; 
 }
 
-.card h2{
+.card h2, h3{
     font-weight: 600;
-    
+    text-decoration: none;
 }
 

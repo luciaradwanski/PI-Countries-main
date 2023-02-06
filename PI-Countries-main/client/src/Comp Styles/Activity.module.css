@@ -1,0 +1,19 @@
+.container{
+    /* border-color: rgb(142, 142, 143); */     
+    /* background-color: aliceblue; */
+}
+
+.container h3{
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.datos{
+    width: 100%;
+    display:flex;
+    justify-content:space-evenly; 
+    align-items: center;
+    box-sizing: border-box;    
+}
+
+

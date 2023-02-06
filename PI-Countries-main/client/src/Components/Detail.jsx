@@ -1,78 +1,68 @@
-// import React, { useEffect } from 'react';
-// import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from 'react-router-dom';
-// import {getCountryDetail, } from '../Redux/actions/actions'
-// import style from '../CompStyle/Detail.module.css';
+import React from 'react';
+import { useEffect,  } from 'react';
+import {useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import {useParams, } from 'react-router-dom';
+import { deleteActivity, getCountryDetail } from '../Actions';
+import CountryDetail from './CountryDetail';
 
-// export default function Detail (){
 
-//     const country = useSelector((state) => state.countriesReducer.countryDetail);
-//     const dispatch = useDispatch();
-//     const params = useParams()
 
-//     useEffect(() => {
-//         dispatch(getCountryDetail(params.id));
-//         // return () => {
-//         // dispatch(clearCountryDetail());
-//         // };
-//     }, [dispatch, params.id]);
+export default function Detail(props){
+    const dispatch = useDispatch()
+    const detail = useSelector((state) => state.detail)
+    const [paises, setPaises] = useState({}); 
 
-//     return(
-//         <div className={style.form}>
-//             <div className={style.form}>
-//                 <h2 className={style.h2}>Country Details</h2>
-//                 <div>
-//                     <img className={style.img} src={country.image} alt={country.id}/>
-//                 </div>
-//                 <div>
-//                     <div className={style.container}>
-//                         <h2 className={style.h2}>Country Code: </h2>
-//                         <p>{country.id}</p>
-//                         <h2 className={style.h2}>Country Name: </h2>
-//                         <p>{country.name}</p>
-//                         <h2 className={style.h2}>Capital: </h2>
-//                         <p>{country.capital}</p>
-//                         <h2 className={style.h2}>Subregion: </h2>
-//                         <p>{country.subregion}</p>
-//                         <h2 className={style.h2}>Population: </h2>
-//                         <p>{country.population} habitants</p>
-//                         <h2 className={style.h2}>Area: </h2>
-//                         <p >{country.area}km <sup>2</sup></p>
-//                         <h2 className={style.h2}>Continent:</h2>
-//                         <p>{country.continent}</p>
-//                         {country.activities?.length ? (
-//                             <div>
-//                                 <h2 className={style.h2}>Activities</h2>
-//                                 {country.activities?.map((a) => (
-//                                     <p style={{ paddingBottom: "10px" }} key={Math.random(0, 10)}>
-//                                         {a.name}.
-//                                     </p>
-//                                 ))}
-//                             </div>
-//                         ) : ("")}
+   
+    useEffect(() => {
+        dispatch(getCountryDetail(props.match.params.id))
+    },[dispatch, props.match.params.id])
 
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
+    const handleDelete = (e) => {
+        dispatch(deleteActivity(id))
+    }
 
-export default function Detail(){
-    return(
+    return (
         <div>
-            <h1>ESTOY EN DETAIL</h1>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
-            <h2>Estoy en Detail</h2>
+            
+            {detail.length > 0 ? 
+                <div>
+                    <div>
+                        <CountryDetail
+                            image={detail.image}
+                            name={detail.name}
+                            id={detail.id}
+                            continent={detail.continent}
+                            subregion={detail.subregion}
+                            capital={detail.capital}
+                            area={detail.area}
+                            population={detail.population}
+                        />
+                    </div>
+                    <div>
+                        <img src={detail.image} alt="imagen" />
+                        <h1>Tourist Activities</h1>
+                        {detail.activities && detail.activities.length > 0 ? detail.activities.map((el, index) => {
+                            return (
+                                <div>
+                                    <Activity
+                                        id={el.id}
+                                        name={el.name}
+                                        difficulty={el.difficulty}
+                                        duration={el.duration}
+                                        season={el.season}
+                                        key={index}
+                                    />
+                                    <button>Delete Activity</button>
+                                </div>
+                            )
+                        })}
+                    </div>
+
+                </div>
+            }
+            
         </div>
     )
 }
+

@@ -26,31 +26,57 @@ router.get('/', async (req,res) => {
 
 router.post('/', async (req,res)=>{
 
-    const { name, difficulty, duration, season, paises } = req.body
-    
     try{
+
+        const { name, difficulty, duration, season, paises } = req.body
+
         
-        if(!name || !difficulty || !duration || (season!=='Verano' && season!=='Otoño' && season!=='Invierno' && season!=='Primavera') || !paises){
+        if(!name || name ==='' || !difficulty || !duration || (season!=='Verano' && season!=='Otoño' && season!=='Invierno' && season!=='Primavera') || paises.length===0){
 
-            res.status(404).json({message: 'Los datos ingresados son incorrectos, la actividad no se ha creado'})
+            
+            res.status(404).json('Los datos ingresados son incorrectos, la actividad no se ha creado')
 
-        } else{
+        }else{
            
            const newActivity = await Activity.create({name, difficulty, duration, season })
-           
-           let countries = await Country.findAll({ where: { name: paises}})
+
+           let countries = await Country.findAll({
+               where: { name: paises}
+           })
 
            newActivity.addCountry(countries) 
 
-           res.status(201).json({message: 'La actividad se ha creado exitosamente!'})
+           res.status(200).json('La actividad se ha creado exitosamente!')
         }        
 
     }catch(error){
-        res.status(404).json({message: 'La actividad no se ha podido crear'})
+
+        console.log(error)
+        res.status(404).json('La actividad no se ha podido crear')
     }
     
 })
 
+router.delete('/:id', async (req,res)=>{
+
+    const { id } = req.params
+    
+    try{
+
+        let filaBorrada = await Activity.destroy({
+            where:{id: id},
+            truncate: {cascade: true}
+        });
+        if(filaBorrada === 1){
+            res.status(200).json('La actividad fue eliminada')  
+        }                    
+
+    }catch(error){
+        
+        res.status(404).json("La actividad no se pudo eliminar")
+
+    }     
+})
 router.delete('/:id', async (req,res)=>{
 
     const { id } = req.params

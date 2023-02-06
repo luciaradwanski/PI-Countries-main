@@ -4,13 +4,12 @@ export const GET_COUNTRIES = "GET_COUNTRIES";
 export const GET_ACTIVITIES = "GET_ACTIVITIES";
 export const POST_ACTIVITY = "POST_ACTIVITY"
 export const GET_NAME_COUNTRY = "GET_NAME_COUNTRY";
-// export const GET_DETAIL = "GET_DETAIL";
+export const GET_DETAIL = "GET_DETAIL";
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
-// export const FILTER_BY_ACTIVITY = "FILTER_BY_ACTIVITY";
+export const FILTER_BY_ACTIVITY = "FILTER_BY_ACTIVITY";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const FILTER_POPULATION = "FILTER_POPULATION";
-
-// export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
+export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
 
 export const getCountries = () => {
     return async function (dispatch){
@@ -45,42 +44,47 @@ export const getNameCountry = (name) => {
 }; 
 
 
-// export const filterByActivity = (payload) => {
+export const filterByActivity = (payload) => {
 
-//     return { type: FILTER_BY_ACTIVITY, payload: payload }
-// }
+    return { type: FILTER_BY_ACTIVITY, payload: payload }
+}
 
 export const getActivities = () => {
     return async function (dispatch){
-        const act = await axios.get("http://localhost:3001/activities", {})
+        const act = await axios.get('http://localhost:3001/activities', {
+
+        })
         return  dispatch({ type: GET_ACTIVITIES, payload: act.data })
     }
 }; 
 
-export const postActivity = (payload) => {
+export function postActivity(payload){
     return async function (dispatch){
-        const response = await axios.post("http://localhost:3001/activities",payload)
-        console.log(response)
-        return response;
+        const postAct = await axios.post('http://localhost:3001/activities',payload);
+        console.log(postAct);
+        return postAct;
     }           
 }; 
 
 
 
 
-// export const getCountryDetail = (id) => {
-//     return async function (dispatch){
-//         const api = await axios(`http://localhost:3001/countries/${id}`)
-//         const detail = api.data;
-//         return dispatch({type: GET_DETAIL, payload: detail})
-//     }
-// }; 
+export const getCountryDetail = (id) => {
+    return async function (dispatch){
+        try {
+            const api = await axios(`http://localhost:3001/countries/${id}`)
+            return dispatch({type: GET_DETAIL, payload: api.data})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}; 
 
-// export const deleteActivity = (id) => {
+export const deleteActivity = (id) => {
     
-//     return async function (dispatch){
-//         const act = await axios.delete(`http://localhost:3001/activities/${id}`) 
-//         const deleteAct = act.data;    
-//         return dispatch({ type: DELETE_ACTIVITY, payload: deleteAct })
-//     }  
-// }
+    return async function (dispatch){
+        const act = await axios.delete(`http://localhost:3001/activities/${id}`) 
+        const deleteAct = act.data;    
+        return dispatch({ type: DELETE_ACTIVITY, payload: deleteAct })
+    }  
+}

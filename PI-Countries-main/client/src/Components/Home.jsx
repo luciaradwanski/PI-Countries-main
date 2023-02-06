@@ -59,7 +59,7 @@ export default function Home(){
             <h1>APP OF THE COUNTRIES</h1>
             <button onClick={(e) => handleClick(e)}>Volver a cargar todos los paises</button>
             <div >
-                <div class={style.filtrado}>
+                <div className={style.filtrado}>
 
                 <select onChange={(e) => handleSort(e)}>
                     <option value="asc">Ascendente</option>
@@ -88,13 +88,13 @@ export default function Home(){
 
                 />
                 <SearchBar/>
-                <div class={style.cards}>
+                <div className={style.cards}>
 
-                    {currentCountries.map( el => {
+                    {currentCountries.map( (el) => {
                         return (
                             <fragment>
-                                <Link to={"/home" + el.id}>
-                                    <Card name={el.name} continent={el.continent} image={el.image}/>
+                                <Link className={style.link} to={"/home" + el.id}>
+                                    <Card name={el.name} continent={el.continent} image={el.image} />
                                 </Link>
                             </fragment>
                         )
