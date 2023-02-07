@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { useEffect,  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import { getDetail, deleteActivity} from '../Actions';
+import { Link} from 'react-router-dom';
+import { getDetail} from '../Actions';
 import styles from '../Comp Styles/Detail.module.css'
 import Activity from './Activity';
 
 export default function Detail(props){
     
-    const {id} = useParams()
-    const [set, setSet] = useState(true)
-    const history = useHistory()
+    
+    
     const dispatch = useDispatch()
     const detail = useSelector((state) => state.detail)
+    
+    const [set, setSet] = useState(true)
     
     useEffect(() => {
         dispatch(getDetail(props.match.params.id))

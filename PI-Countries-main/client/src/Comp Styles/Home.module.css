@@ -1,6 +1,21 @@
+.container{
+    margin-top: 100px;
+}
+
+.button{
+    background-color: rgba(55, 127, 190, 0.559);
+    color: white;
+}
+
 .filtrado{
     display: flex;
     justify-content: space-around;   
+    margin-bottom: 20px;
+}
+
+.select{
+    background-color: rgba(55, 127, 190, 0.448);
+    color: white;
 }
 
 .cards{

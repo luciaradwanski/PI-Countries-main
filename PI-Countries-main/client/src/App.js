@@ -7,6 +7,7 @@ import Home from './Components/Home'
 import ActivityCreate from './Components/ActivityCreate';
 import Detail from './Components/Detail';
 
+
 function App() {
 
   return (

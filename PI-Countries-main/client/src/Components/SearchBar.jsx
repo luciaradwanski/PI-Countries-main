@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getNameCountry } from '../Actions/index'
-// import style from '../CompStyle/SearchBar.module.css'
+import { getNameCountry } from '../Actions/index';
+import style from '../Comp Styles/SearchBar.module.css'
 
 
 export default function SearchBar(){
@@ -20,8 +20,8 @@ export default function SearchBar(){
     }
 
     return(
-        <div>
-            <input type="text" placeholder='Buscar...' onChange={(e) => handleInputChange(e)}/>
+        <div className={style.container}>
+            <input className={style.input} type="text" placeholder='Buscar...' onChange={(e) => handleInputChange(e)}/>
             <button type='submit' onClick={(e) => handleSubmit(e)}>Buscar</button>
         </div>
     )

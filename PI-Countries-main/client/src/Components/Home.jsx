@@ -7,6 +7,7 @@ import Card from "./Card";
 import Paginado from "./Paginado";
 import style from '../Comp Styles/Home.module.css'
 import SearchBar from "./SearchBar";
+import NavBar from './NavBar'
 
 export default function Home(){
 
@@ -66,37 +67,39 @@ export default function Home(){
 
     
     return(
-        <div>
-            <Link to='/activity'>Crear actividades</Link>
+
+        <div className={style.container}>
+            <NavBar/>
+            <Link to='/activity'><button className={style.button}>Crear actividades</button></Link>
             <h1>APP OF THE COUNTRIES</h1>
             <button onClick={(e) => handleClick(e)}>Volver a cargar todos los paises</button>
-            <div >
+            <div>
                 <div className={style.filtrado}>
 
-                <select onChange={(e) => handleSort(e)}>
-                    <option value="asc">Ascendente</option>
-                    <option value="desc">Descendente</option>
-                </select>
-                <select onChange={(e) => handleFilterContinent(e)}>
-                    <option value="All">Todos</option>
-                    <option value="Europe">Europe</option>
-                    <option value="South America">South America</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Antarctica">Antarctica</option>
-                    <option value="Africa">Africa</option>
-                    <option value="North America">North America</option>
-                    <option value="Oceania">Oceania</option>
-                </select>
-                <select onChange={(e) => handleFilterPopulation(e)}> 
-                    <option value="ASC">Population Max</option>
-                    <option value="DES">Population Min</option>
-                </select>
-                <select onChange = {e => handleFilterActivity(e)}>                
-                            <option value="Elegir Actividad" disabled selected>Elegir Actividad</option>
-                            {allActivities && allActivities.map((act) => {
-                                return <option value= {act.name}>{act.name}</option>
-                            })}                
-                        </select>
+                    <select className={style.select} onChange={(e) => handleSort(e)}>
+                        <option value="asc">Ascendente</option>
+                        <option value="desc">Descendente</option>
+                    </select>
+                    <select className={style.select} onChange={(e) => handleFilterContinent(e)}>
+                        <option value="All">Todos</option>
+                        <option value="Europe">Europe</option>
+                        <option value="South America">South America</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Antarctica">Antarctica</option>
+                        <option value="Africa">Africa</option>
+                        <option value="North America">North America</option>
+                        <option value="Oceania">Oceania</option>
+                    </select>
+                    <select className={style.select} onChange={(e) => handleFilterPopulation(e)}> 
+                        <option value="ASC">Population Max</option>
+                        <option value="DES">Population Min</option>
+                    </select>
+                    <select className={style.select} onChange = {e => handleFilterActivity(e)}>                
+                        <option value="Elegir Actividad" disabled selected>Elegir Actividad</option>
+                        {allActivities && allActivities.map((act) => {
+                            return <option value= {act.name}>{act.name}</option>
+                        })}                
+                    </select>
                 </div>
 
                 <Paginado

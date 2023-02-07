@@ -1,0 +1,18 @@
+.container{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+.input{
+    width: 180px;
+    height: 20px;
+    /* margin: 5px; */
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(55, 127, 190, 0.448) ;
+    color: white;
+    user-select: none;
+}
