@@ -79,8 +79,8 @@ function rootReducer (state = initialState, action){
         case FILTER_BY_ACTIVITY:
             
             var filt=[];
-            allCountries = state.allCountries;
-            allCountries.forEach(el => {
+            const filterCountries = state.allCountries;
+            filterCountries.forEach(el => {
                 el.activities.forEach((act) => {
                     if (act.name === action.payload){
                         filt.push(el)

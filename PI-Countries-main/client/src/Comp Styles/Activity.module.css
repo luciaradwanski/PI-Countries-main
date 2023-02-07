@@ -1,6 +1,9 @@
 .container{
-    /* border-color: rgb(142, 142, 143); */     
-    /* background-color: aliceblue; */
+    background-color: rgba(181, 229, 246, 0.29);
+    color: white;
+    border-radius: 20px;
+    padding: 10px;
+    
 }
 
 .container h3{

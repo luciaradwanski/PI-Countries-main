@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useEffect } from "react"; //useState
 import { useDispatch, useSelector } from "react-redux";
-import {filterByContinent, filterByPopulation, getCountries, orderByName } from "../Actions";
+import {filterByActivity, filterByContinent, filterByPopulation, getActivities, getCountries, orderByName } from "../Actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
@@ -12,8 +12,13 @@ export default function Home(){
 
     const dispatch = useDispatch()
     const allCountries = useSelector((state) => state.countries)
+    const allActivities = useSelector((state) => state.activities)
     useEffect(()=>{
         dispatch(getCountries())
+    },[dispatch])
+
+    useEffect(() => {
+        dispatch(getActivities())
     },[dispatch])
 
     const [, setOrden] = useState('') //orden
@@ -52,6 +57,13 @@ export default function Home(){
         setPopulation(`Filtrado ${e.target.value}`)
     }
 
+    const handleFilterActivity = (e) => {
+        if(e.target.value !=='Elegir Actividad'){
+            dispatch(filterByActivity(e.target.value))
+            setCurrentPage(1)
+        }        
+    }
+
     
     return(
         <div>
@@ -79,6 +91,12 @@ export default function Home(){
                     <option value="ASC">Population Max</option>
                     <option value="DES">Population Min</option>
                 </select>
+                <select onChange = {e => handleFilterActivity(e)}>                
+                            <option value="Elegir Actividad" disabled selected>Elegir Actividad</option>
+                            {allActivities && allActivities.map((act) => {
+                                return <option value= {act.name}>{act.name}</option>
+                            })}                
+                        </select>
                 </div>
 
                 <Paginado

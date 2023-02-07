@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect,  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { getDetail } from '../Actions';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import { getDetail, deleteActivity} from '../Actions';
 import styles from '../Comp Styles/Detail.module.css'
 import Activity from './Activity';
 
@@ -10,24 +10,32 @@ export default function Detail(props){
     
     const {id} = useParams()
     const [set, setSet] = useState(true)
-
+    const history = useHistory()
     const dispatch = useDispatch()
     const detail = useSelector((state) => state.detail)
-    const activities = useSelector((state) => state.activities)
+    
     useEffect(() => {
         dispatch(getDetail(props.match.params.id))
     }, [dispatch, props.match.params.id]);
-    const activity = activities.filter((e) => e.paises[0].id === id)
+    
 
-    // const handleDelete = (e) => {
-    //     dispatch(deleteActivity(id))
-    //     alert('The activity was deleted')
-    //     history.pushState('/countries')
-    // }
+    const handleDelete = (e) => {
+        dispatch(deleteActivity(id))
+        alert('The activity was deleted')
+        history.push('/countries')
+    }
 
     return (
         <div className={styles.supreme}>
             <div className={styles.ContainerDetails}>
+                <div className={styles.ContainerButton}>
+                    <Link to="/home">
+                        <button className={styles.atras}>Back</button>
+                    </Link>
+                    <Link to="/activity">
+                        <button className={styles.button}>Create</button>
+                    </Link>
+                </div>
                 <div className={styles.ContainerData}>
                     <div className={styles.data1}>
                         <div className={styles.ContainerImage}>
@@ -48,9 +56,9 @@ export default function Detail(props){
             
                     </div> 
                     : <div className={styles.data2}>
-                        {detail.activities && detail.activities.length>0 ?detail.activities.map(el=>{
+                        {detail.activities && detail.activities.length>0 ?detail.activities.map((el, index)=>{
                             return(
-                                <div >                                                                                               
+                                <div style={{"display": "flex", "justifyContent" : "flex-start"}} key={index}>                                                                                               
                                     <Activity
                                         id = {el.id}
                                         name = {el.name}
@@ -59,18 +67,17 @@ export default function Detail(props){
                                         season = {el.season}
                                         key = {el.id}
                                     />
-                                    {/* <button onClick={()=>handleClick(el.id)}>Eliminar Actividad</button> */}
+                                    <button onClick={()=>handleDelete(el.id)}>Eliminar Actividad</button>
                                 </div>   
                             )
-                        }      
-                        ): <h4>No hay actividades registradas</h4>} 
-                    </div>}
+                        }) : <h4>No hay actividades registradas</h4> } 
+                    </div> }
 
                 </div>
                 <div className={styles.ShowActivity}>
                     { set ? <button onClick={()=> setSet(!set)}>Mostrar Activades</button> : <button onClick={()=> setSet(!set)}>Mostras informacion</button>}
                 </div>
-                <div></div>
+                
             </div>
         </div >
     )
