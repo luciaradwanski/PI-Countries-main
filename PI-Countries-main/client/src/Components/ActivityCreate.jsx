@@ -97,7 +97,7 @@ export default function ActivityCreate(){
             <div className={style.container}>
                 <NavBar/>
                 <div className={style.containerBtn}>
-                    <Link to='/home'><button>Volver</button></Link>
+                    <Link to='/home'><button>Back</button></Link>
                 </div>
                 <h1 className={style.title}>Create you Activity</h1>
                 

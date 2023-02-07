@@ -1,0 +1,24 @@
+.container{
+    color: aliceblue;
+    margin-top: 100px;
+}
+
+.container > p  {
+    color: aliceblue;
+    
+}
+
+.p{
+    padding: 20px;
+    border-radius: 40px;
+    background-color: rgba(55, 127, 190, 0.756);
+    font-family: 'Didact Gothic';
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    transform: translateX(500px);
+}

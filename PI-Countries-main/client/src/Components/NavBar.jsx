@@ -7,6 +7,7 @@ export default function NavBar(){
     return(
         <div className={style.container}>
             <Link className={style.link} to='/home'>HOME</Link>
+            <Link className={style.link} to='/about'>ABOUT</Link>
             <Link className={style.link} to='/activity'>CREATE ACTIVITY</Link>
         </div>
     )

@@ -29,6 +29,10 @@
 .title{
     color: whitesmoke;
     margin-bottom: 5px;
+    font-family: 'Didact Gothic';
+    background-color: rgba(55, 127, 190, 0.756);
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .name{

@@ -70,18 +70,18 @@ export default function Home(){
 
         <div className={style.container}>
             <NavBar/>
-            <Link to='/activity'><button className={style.button}>Crear actividades</button></Link>
+            <Link to='/activity'><button className={style.button}>Create Activities</button></Link>
             <h1>APP OF THE COUNTRIES</h1>
-            <button onClick={(e) => handleClick(e)}>Volver a cargar todos los paises</button>
+            <button onClick={(e) => handleClick(e)}>Reload all countries</button>
             <div>
                 <div className={style.filtrado}>
 
                     <select className={style.select} onChange={(e) => handleSort(e)}>
-                        <option value="asc">Ascendente</option>
-                        <option value="desc">Descendente</option>
+                        <option value="asc">Ascendent</option>
+                        <option value="desc">Descendent</option>
                     </select>
                     <select className={style.select} onChange={(e) => handleFilterContinent(e)}>
-                        <option value="All">Todos</option>
+                        <option value="All">All</option>
                         <option value="Europe">Europe</option>
                         <option value="South America">South America</option>
                         <option value="Asia">Asia</option>
@@ -95,7 +95,7 @@ export default function Home(){
                         <option value="DES">Population Min</option>
                     </select>
                     <select className={style.select} onChange = {e => handleFilterActivity(e)}>                
-                        <option value="Elegir Actividad" disabled selected>Elegir Actividad</option>
+                        <option value="Elegir Actividad" disabled selected>Choose Activity</option>
                         {allActivities && allActivities.map((act) => {
                             return <option value= {act.name}>{act.name}</option>
                         })}                

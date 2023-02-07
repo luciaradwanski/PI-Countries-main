@@ -1,0 +1,40 @@
+.container{ 
+    height: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+}
+
+.title{
+    padding: 20px;
+    border-radius: 40px;
+    background-color: rgba(55, 127, 190, 0.756);
+    font-family: 'Didact Gothic';
+}
+
+.start { 
+    color: rgb(226, 206, 221);
+    background-color: rgba(55, 127, 190, 0.756);
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 22px;
+    width: 120px;
+    margin-top: 15px;
+}
+
+.start:hover { 
+    opacity: 0.8;
+    background:linear-gradient(to bottom,#5f54ff , #56b1d8); 
+    color: white;
+}
+
+.p{
+    padding: 20px;
+    border-radius: 40px;
+    background-color: rgba(55, 127, 190, 0.756);
+    font-family: 'Didact Gothic';
+}
