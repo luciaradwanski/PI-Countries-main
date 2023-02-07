@@ -22,7 +22,7 @@ export default function Detail(props){
 
     
     return (
-        <div className={styles.supreme}>
+        <div className={styles.container}>
             <div className={styles.ContainerDetails}>
                 <div className={styles.ContainerButton}>
                     <Link to="/home">

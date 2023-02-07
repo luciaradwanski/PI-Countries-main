@@ -32,3 +32,16 @@
 .paginado li a:hover:not(.active){
     background-color: #93befa;
 }
+
+@media screen and (max-width: 820px)  {
+    .paginado{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+}
+
+@media screen and (max-width: 430px)  {
+
+    .paginado{}
+}

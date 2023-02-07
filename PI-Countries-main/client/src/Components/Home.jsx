@@ -71,7 +71,7 @@ export default function Home(){
         <div className={style.container}>
             <NavBar/>
             <Link to='/activity'><button className={style.button}>Create Activities</button></Link>
-            <h1>APP OF THE COUNTRIES</h1>
+            <h1 className={style.title}>APP OF THE COUNTRIES</h1>
             <button onClick={(e) => handleClick(e)}>Reload all countries</button>
             <div>
                 <div className={style.filtrado}>
@@ -113,11 +113,11 @@ export default function Home(){
 
                     {currentCountries.map( (el) => {
                         return (
-                            <fragment>
+                            <div>
                                 <Link className={style.link} to = {`/detail/${el.id}`}>
                                     <Card name={el.name} continent={el.continent} image={el.image} />
                                 </Link>
-                            </fragment>
+                            </div>
                         )
                     })}
                 </div>

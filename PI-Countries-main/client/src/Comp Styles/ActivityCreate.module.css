@@ -106,3 +106,21 @@
     color: white;
     padding: 20px;
 }
+
+@media screen and (max-width: 820px)  {
+
+    .containerForm{
+        width: 300px;
+        height: 520px;
+    }
+  
+}
+
+@media screen and (max-width: 430px)  {
+    .title{
+        font-size: 20px;
+    }
+}
+
+
+
