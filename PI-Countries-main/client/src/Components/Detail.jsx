@@ -19,12 +19,7 @@ export default function Detail(props){
     }, [dispatch, props.match.params.id]);
     
 
-    const handleDelete = (e) => {
-        dispatch(deleteActivity(id))
-        alert('The activity was deleted')
-        history.push('/countries')
-    }
-
+    
     return (
         <div className={styles.supreme}>
             <div className={styles.ContainerDetails}>
@@ -67,7 +62,6 @@ export default function Detail(props){
                                         season = {el.season}
                                         key = {el.id}
                                     />
-                                    <button onClick={()=>handleDelete(el.id)}>Eliminar Actividad</button>
                                 </div>   
                             )
                         }) : <h4>No hay actividades registradas</h4> } 

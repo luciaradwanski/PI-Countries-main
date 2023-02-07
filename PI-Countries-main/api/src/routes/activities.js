@@ -59,17 +59,12 @@ router.post('/', async (req,res)=>{
 
 router.delete('/:id', async (req,res)=>{
 
-    const { id } = req.params
+    const {id } = req.params
     
     try{
-
-        let filaBorrada = await Activity.destroy({
-            where:{id: id},
-            truncate: {cascade: true}
-        });
-        if(filaBorrada === 1){
-            res.status(200).json('La actividad fue eliminada')  
-        }                    
+        const activity = await Activity.findByPk(id)
+        await activity.destroy();
+        res.status(200).json(activity)                 
 
     }catch(error){
         

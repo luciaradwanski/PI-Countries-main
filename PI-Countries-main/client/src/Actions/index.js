@@ -83,8 +83,7 @@ export const getDetail = (id) => {
 export const deleteActivity = (id) => {
     
     return async function (dispatch){
-        const act = await axios.delete(`http://localhost:3001/activities/${id}`) 
-        const deleteAct = act.data;    
-        return dispatch({ type: DELETE_ACTIVITY, payload: deleteAct })
+        const act = await axios.delete(`http://localhost:3001/activities/${id}`)  
+        return dispatch({ type: DELETE_ACTIVITY, payload: act.data })
     }  
 }
