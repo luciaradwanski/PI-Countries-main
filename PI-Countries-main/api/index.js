@@ -35,7 +35,7 @@ async function countriesLoaded(){
   try{
       const countriesApi = await axios.get('https://restcountries.com/v3.1/all') 
       //paso a BD
-      countriesApi.data.forEach(c =>{
+      countriesApi.data.map(c =>{
         Country.findOrCreate({
           where:{ id: c.cca3 },
             defaults:{
