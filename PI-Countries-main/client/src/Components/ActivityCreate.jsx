@@ -5,18 +5,27 @@ import { postActivity, getCountries } from '../Actions/index';
 
 
 
-// function validate(input){
-//     let errors = {};
-//     if (!input.name) { errors.name = 'Debe ingresar un nombre'} 
-//     if (!/[A-Za-z0-9]/.test(input.name)) { errors.name = 'El nombre admite solo letras, numeros y espacios'}
-//     if(!input.difficulty){ errors.difficulty = 'Debe ingresar un valor entre 1 y 5'}
-//     if(input.difficulty<1 || input.difficulty>5){errors.difficulty = 'Debe ingresar un valor entre 1 y 5' }
-//     if(!input.duration){ errors.duration = 'Debe ingresar la duración en horas' }
-//     if(input.duration<0 || input.duration>24){ errors.duration = 'La duración debe ser de 1 a 24 horas' }
-//     if(!input.season){ errors.season = 'Debe seleccionar una temporada'}
-//     if(!input.paises.length){ errors.paises = 'Debe seleccionar al menos un país'}
-//     return errors;
-// }
+function validate(input){
+    let errors = {};
+    if(!input.name){
+        errors.name = 'Debe ingresar un nombre'
+    }if(!/[A-Za-z0-9]/.test(input.name)){
+        errors.name = 'El nombre admite solo letras, numeros y espacios'     
+    }if(!input.difficulty){
+        errors.difficulty = 'Debe ingresar un valor entre 1 y 5'
+    }if(input.difficulty<1 || input.difficulty>5){
+            errors.difficulty = 'Debe ingresar un valor entre 1 y 5'
+    }if(!input.duration){
+        errors.duration = 'Debe ingresar la duración en horas'
+    }if(input.duration<0 || input.duration>24){
+        errors.duration = 'La duración debe ser de 1 a 24 horas'
+    }if(!input.season){
+        errors.season = 'Debe seleccionar una temporada'
+    }if(input.paises.length === 0){
+        errors.paises = 'Debe seleccionar al menos un país'    
+    }
+    return errors;
+}
 
 export default function ActivityCreate(){
 
