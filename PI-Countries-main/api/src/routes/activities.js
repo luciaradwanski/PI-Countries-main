@@ -34,15 +34,13 @@ router.post('/', async (req,res)=>{
         if(!name || name ==='' || !difficulty || !duration || (season!=='Verano' && season!=='Otoño' && season!=='Invierno' && season!=='Primavera') || paises.length===0){
 
             
-            res.status(404).json('Los datos ingresados son incorrectos, la actividad no se ha creado')
+            res.status(400).json('Los datos ingresados son incorrectos, la actividad no se ha creado')
 
         }else{
            
            const newActivity = await Activity.create({name, difficulty, duration, season })
 
-        //    let countries = await Country.findAll({
-        //        where: { name: paises}
-        //    })
+        
 
            newActivity.addCountry(paises) 
 

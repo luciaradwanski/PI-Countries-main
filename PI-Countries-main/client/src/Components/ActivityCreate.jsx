@@ -114,7 +114,7 @@ export default function ActivityCreate(){
                                 
                         <div className={style.name}>
                             <label className={style.nameLabel}>Difficulty</label>
-                            <input className={style.inputName} type='number' value={input.difficulty} name = 'difficulty' min='1' max='5' onChange={(e) => handleChange(e)}></input>                            
+                            <input className={style.inputName} type='text' value={input.difficulty} name = 'difficulty' min='1' max='5' onChange={(e) => handleChange(e)}></input>                            
                             {error.difficulty && (<p className={style.spanError}>{error.difficulty}</p>)}
                         </div>
                         

@@ -5,6 +5,7 @@ import { Link} from 'react-router-dom';
 import { getDetail} from '../Actions';
 import styles from '../Comp Styles/Detail.module.css'
 import Activity from './Activity';
+import CountryDetail from './CountryDetail';
 
 export default function Detail(props){
     
@@ -42,12 +43,20 @@ export default function Detail(props){
 
                     {set ? <div className={styles.data2}>
                     <div>
-                        <h2>Nombre {detail.name} </h2>
-                        <h2>Continente {detail.continent}</h2>
-                        <h3>Capital {detail.capital}</h3>
-                        <h3>Area {detail.area} </h3>
-                        <h3>Subregion {detail.subregion}</h3>
-                        <h3>Poblacion {detail.population}</h3>
+                        <CountryDetail
+                            name={detail.name}
+                            continent={detail.continent}
+                            capital={detail.capital}
+                            area={detail.area}
+                            subregion={detail.subregion}
+                            population={detail.population}
+                        />
+                        {/* <h2>Nombre: {detail.name} </h2>
+                        <h2>Continente: {detail.continent}</h2>
+                        <h3>Capital: {detail.capital}</h3>
+                        <h3>Area: {detail.area} </h3>
+                        <h3>Subregion: {detail.subregion}</h3>
+                        <h3>Poblacion: {detail.population}</h3> */}
                     </div>
             
                     </div> 

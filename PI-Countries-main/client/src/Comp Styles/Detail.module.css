@@ -30,7 +30,7 @@
     background-color:rgba(245, 245, 245, 0.318);
     user-select: none;
     width: 750px;
-    height: 440px;
+    height: 500px;
 }
 .ContainerButton {
     display: flex;
