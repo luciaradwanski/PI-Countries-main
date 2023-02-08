@@ -56,27 +56,3 @@ async function countriesLoaded(){
 
 }
 
-//FUNCION HECHA CON PROMESAS (AXIOS)  (sacar el async y el await en linea 60 y 61)
-/* function countriesLoaded(){
-  try{
-     //traigo de api
-     return axios.get('https://restcountries.com/v3.1/all') 
-     //paso a BD
-     .then(response => response.data.forEach(c =>{
-      Country.findOrCreate({
-          where:{ id: c.cca3 },
-          defaults:{
-                  name: c.name.common,
-                  image: c.flags.png,
-                  continent: c.continents[0],
-                  capital: c.capital? c.capital[0] : 'No Data',
-                  subregion: c.subregion? c.subregion : 'No Data',
-                  area: c.area,
-                  population: c.population 
-          }
-      })
-  }) )
-  }catch(error){
-    console.log('No se cargaron los datos a la BD')
-  }
-}  */

@@ -87,14 +87,7 @@ function rootReducer (state = initialState, action){
                     }
                 })
             }) 
-                //ALTERNATIVA EN FOR ANTIGUO PARA EL CASO DE ARRIBA
-             /*for(var i=0; i<allCountries.length;i++){
-                    for(var j=0; j<allCountries[i].activities.length;j++){
-                        if(allCountries[i].activities[j].name === action.payload){
-                            filt.push(allCountries[i])
-                        }
-                    }
-                } */                          
+                                       
                 console.log('reducer filterAct')
                 console.log(filt)
 
