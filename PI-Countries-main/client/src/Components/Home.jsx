@@ -42,7 +42,8 @@ export default function Home(){
     }
 
     const handleFilterContinent = (e) => {
-        dispatch(filterByContinent(e.target.value))
+        dispatch(filterByContinent(e.target.value));
+        setCurrentPage(1);
     }
 
     const handleSort = (e) => {

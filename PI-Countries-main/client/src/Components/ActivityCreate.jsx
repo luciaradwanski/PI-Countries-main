@@ -5,7 +5,7 @@ import { postActivity, getCountries } from '../Actions/index';
 import style from '../Comp Styles/ActivityCreate.module.css'
 import NavBar from './NavBar';
 
-const validate = (input) => {
+const validate = (input) => { //regex - y + que no se pueda 
     let error = {};
     if(!/[A-Za-z0-9]/.test(input.name)){
         error.name = 'El nombre admite solo letras, numeros y espacios'     
@@ -62,7 +62,7 @@ export default function ActivityCreate(){
 
     const handleSubmit = (e) => {
 
-        if(input.name==='' && input.difficulty==='' & input.duration===''&& input.season==='' && input.paises.length<1) {
+        if(!input.name && !input.difficulty & !input.duration && !input.season && !input.paises.length) {
             alert('Check the data entered')
         } else {
 

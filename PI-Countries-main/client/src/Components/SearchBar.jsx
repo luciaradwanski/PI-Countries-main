@@ -10,13 +10,14 @@ export default function SearchBar(){
     const [name, setName] = useState('')
     const handleInputChange = (e) => {
         e.preventDefault();
-        setName(e.target.value);
+        setName(e.target.value); // ver el tema del currentPage
         console.log(name)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(getNameCountry(name))
+        
     }
 
     return(
