@@ -5,56 +5,54 @@ import { postActivity, getCountries } from '../Actions/index';
 import style from '../Comp Styles/ActivityCreate.module.css'
 import NavBar from './NavBar';
 
-function validate(input){
-    let errors = {};
-    if(!input.name){
-        errors.name = 'Debe ingresar un nombre'
-    }if(!/[A-Za-z0-9]/.test(input.name)){
-        errors.name = 'El nombre admite solo letras, numeros y espacios'     
+const validate = (input) => {
+    let error = {};
+    if(!/[A-Za-z0-9]/.test(input.name)){
+        error.name = 'El nombre admite solo letras, numeros y espacios'     
+    }if(!input.name){
+        error.name = 'Debe ingresar un nombre'
     }if(!input.difficulty){
-        errors.difficulty = 'Debe ingresar un valor entre 1 y 5'
+        error.difficulty = 'Debe ingresar un valor entre 1 y 5'
     }if(input.difficulty<1 || input.difficulty>5){
-            errors.difficulty = 'Debe ingresar un valor entre 1 y 5'
+            error.difficulty = 'Debe ingresar un valor entre 1 y 5'
     }if(!input.duration){
-        errors.duration = 'Debe ingresar la duración en horas'
+        error.duration = 'Debe ingresar la duración en horas'
     }if(input.duration<0 || input.duration>24){
-        errors.duration = 'La duración debe ser de 1 a 24 horas'
+        error.duration = 'La duración debe ser de 1 a 24 horas'
     }if(!input.season){
-        errors.season = 'Debe seleccionar una temporada'
+        error.season = 'Debe seleccionar una temporada'
     }if(input.paises.length === 0){
-        errors.paises = 'Debe seleccionar al menos un país'    
+        error.paises = 'Debe seleccionar al menos un país'    
     }
-    return errors;
+    return error;
 }
 
 export default function ActivityCreate(){
 
-    const countries = useSelector((state) => state.countries)
-
     const dispatch = useDispatch()
     const history = useHistory()
-    
+    const countries = useSelector((state) => state.countries)
+    const [error, setError] = useState({});
 
     const [input, setInput] = useState({
         name: '',
         difficulty: 0,
         duration: 0,
         season: '',
-        paises: []
+        paises: [],
     })
 
-    
-    const [error, setError] = useState({});
-
-
-    useEffect(() => {
-        dispatch(getCountries())
-    },[dispatch]) //saco dispatch???
 
     const handleChange = (e) => {
-        setInput({...input, [e.target.name] : e.target.value})
+        setError(validate({
+            ...input, 
+            [e.target.name]: e.target.value
+        }));
+        setInput({
+            ...input, 
+            [e.target.name] : e.target.value
+        });
         console.log(input)
-        setError(validate({...input, [e.target.name]: e.target.value}))
     }
 
     const handleSelect = (e) => {
@@ -70,6 +68,7 @@ export default function ActivityCreate(){
 
             e.preventDefault()
             console.log(input)
+            setError(validate({...input, [e.target.name]: e.target.value}));
             dispatch(postActivity(input))
             alert('Created Activity')
                             
@@ -88,9 +87,12 @@ export default function ActivityCreate(){
 
     const handleDelete = (e) => {
         setInput({ ...input, paises: input.paises.filter(c => c!==e)})
-        setError(validate({ ...input, paises: input.paises.filter(c => c!==e) }))   
+        
     }
 
+    useEffect(() => {
+        dispatch(getCountries())
+    },[dispatch])
 
     return(
         
@@ -105,48 +107,48 @@ export default function ActivityCreate(){
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <div className={style.name}>
                             <label className={style.nameLabel}>Name</label>
-                            <input className={style.inputName} onChange={(e) => handleChange(e)} type='text' value={input.name} name='name'></input>                            
+                            <input className={style.inputName} type='text' value={input.name} name='name' onChange={(e) => handleChange(e)}></input>                            
+                            {error.name && (<p className={style.spanError}>{error.name}</p>)}
                         </div>
                         
-                        {error.name && (<p className={style.spanError}>{error.name}</p>)}
                                 
                         <div className={style.name}>
                             <label className={style.nameLabel}>Difficulty</label>
-                            <input className={style.inputName} onChange={(e) => handleChange(e)} type='number' value={input.difficulty} name = 'difficulty' min='1' max='5'></input>                            
+                            <input className={style.inputName} type='number' value={input.difficulty} name = 'difficulty' min='1' max='5' onChange={(e) => handleChange(e)}></input>                            
+                            {error.difficulty && (<p className={style.spanError}>{error.difficulty}</p>)}
                         </div>
                         
-                        {error.difficulty && (<p className={style.spanError}>{error.difficulty}</p>)}
 
                         <div className={style.name}>
                             <label className={style.nameLabel}>Duration</label>
-                            <input className={style.inputName} onChange={(e) => handleChange(e)} type='number' value={input.duration} name = 'duration'></input>                            
+                            <input className={style.inputName} type='number' value={input.duration} name = 'duration' onChange={(e) => handleChange(e)}></input>                            
+                            {error.duration && (<p className={style.spanError}>{error.duration}</p>)}
                         </div>
                             
-                        {error.duration && (<p className={style.spanError}>{error.duration}</p>)}
                                 
                         <div className={style.name}>
                             <label className={style.nameLabel}>Season</label>
-                            <select className={style.selectName} onChange={e => handleChange(e)} name='season'>
+                            <select className={style.selectName} name='season' onChange={(e) => handleChange(e)}>
                                 <option value={"Verano"}>Verano</option>
                                 <option value={"Otoño"}>Otoño</option>
                                 <option value={"Invierno"}>Invierno</option>
                                 <option value={"Primavera"}>Primavera</option>
                             </select>
+                            {error.season && (<p className={style.spanError}>{error.season}</p>)}
                         </div>
                         
-                        {error.season && (<p className={style.spanError}>{error.season}</p>)}
                         
                         <div className={style.name}>
 
                             <label className={style.nameLabel}>Countries</label>
-                            <select className={style.selectName} onChange={e=>handleSelect(e)} name='paises'>
+                            <select className={style.selectName} name='paises' onChange={e=>handleSelect(e)}>
                                 
                                 {countries.map((c, index)=>( 
                                     <option key={index} value={c.id}>{c.name}</option>  //ordenar por orden alfabetico
                                 ))}
                             </select>    
+                            {error.paises && (<p className={style.spanError}>{error.paises}</p>)}
                         </div>
-                        {error.paises && (<p className={style.spanError}>{error.paises}</p>)}
 
                         {input.paises.length === 0 && 
                             <div className={style.name}>
