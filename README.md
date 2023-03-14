@@ -18,9 +18,9 @@ Es una aplicación web creada como proyecto individual para el bootcamp Henry. E
 
 ✅ Buscar Países y sus actividades
 
-✅ Filtrar Países por Continente, por Área, y por Población
+✅ Filtrar y Ordenar Países por Continente, por Área, y por Población
 
-✅ Filtrar Actividades por Temporada, por Duración, y por Dificultad
+✅ Filtrar y Ordenar Actividades por Temporada, por Duración, y por Dificultad
 
 ✅ Crear nuevas Actividades
 
