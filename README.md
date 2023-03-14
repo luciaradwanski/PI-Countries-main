@@ -18,14 +18,14 @@ Es una aplicación web creada como proyecto individual para el bootcamp Henry. E
 
 Estas son las tecnologías que usé para crear el proyecto completo:
 
-React
-Redux
-Javascript
-HTML
-CSS
-Express
-PostgreSQL
-Sequelize
+✨ React
+✨ Redux
+✨ Javascript
+✨ HTML
+✨ CSS
+✨ Express
+✨ PostgreSQL
+✨ Sequelize
 
 💡 Qué se puede hacer?
 <hr>
